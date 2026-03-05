@@ -58,6 +58,67 @@
   font-weight: 600;
 }
 
+.site-footer-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.site-footer-links button {
+  border: 0;
+  background: transparent;
+  color: #93c5fd;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ad-slot {
+  border: 1px dashed #334155;
+  border-radius: 0.65rem;
+  background: #0b1220;
+  display: grid;
+  align-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem;
+}
+
+.ad-slot-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.06em;
+}
+
+.ad-slot-copy {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.legal-page {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 760px;
+}
+
+.legal-page h1,
+.legal-page p {
+  margin: 0;
+}
+
+.legal-page p {
+  color: #cbd5e1;
+}
+
+.legal-back {
+  width: fit-content;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
 @media (max-width: 700px) {
   .home-mode-grid {
     grid-template-columns: 1fr;

@@ -1,10 +1,11 @@
+import AdSlot from '../features/ads/AdSlot'
 import GameHeader from '../features/tarkle/components/GameHeader'
 import WeaponGuessBoard from '../features/tarkle/components/WeaponGuessBoard'
 import WeaponSearchSelect from '../features/tarkle/components/WeaponSearchSelect'
 import { useTarkleGame } from '../features/tarkle/hooks/useTarkleGame'
 import '../features/tarkle/Tarkle.css'
 
-function GamePage({ mode, onBackHome }) {
+function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
   const {
     attempts,
     weaponBank,
@@ -21,6 +22,8 @@ function GamePage({ mode, onBackHome }) {
 
   return (
     <section className="tarkle">
+      <AdSlot label="Advertisement" minHeight={120} slot="1000000002" />
+
       <GameHeader
         message={message}
         onBackHome={onBackHome}
@@ -51,6 +54,17 @@ function GamePage({ mode, onBackHome }) {
       </div>
 
       <WeaponGuessBoard attempts={attempts} />
+
+      <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
+
+      <footer className="site-footer-links">
+        <button onClick={onOpenPrivacy} type="button">
+          Privacy
+        </button>
+        <button onClick={onOpenTerms} type="button">
+          Terms
+        </button>
+      </footer>
     </section>
   )
 }
