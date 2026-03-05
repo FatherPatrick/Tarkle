@@ -1,0 +1,224 @@
+.tarkle {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.tarkle-header {
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.tarkle-title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.tarkle-subtitle {
+  margin: 0;
+  color: #d1d5db;
+}
+
+.tarkle-status {
+  margin: 0.75rem 0 0;
+  min-height: 1.5rem;
+}
+
+.tarkle-status--won {
+  color: #86efac;
+}
+
+.tarkle-status--lost {
+  color: #fca5a5;
+}
+
+.tarkle-status--locked {
+  color: #fbbf24;
+}
+
+.tarkle-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tarkle-reset {
+  margin: 0.5rem 0 0;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.weapon-controls {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.weapon-select-label {
+  font-size: 0.9rem;
+  color: #d1d5db;
+}
+
+.weapon-search {
+  position: relative;
+}
+
+.weapon-search-input {
+  width: 100%;
+  border: 1px solid #374151;
+  background: #111827;
+  color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.75rem;
+}
+
+.weapon-search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.3rem);
+  max-height: 18rem;
+  overflow: auto;
+  z-index: 10;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  background: #0b1220;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.weapon-search-option {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #1f2937;
+  background: transparent;
+  color: #f9fafb;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+}
+
+.weapon-search-thumb {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  border-radius: 0.3rem;
+  background: #111827;
+  border: 1px solid #374151;
+}
+
+.weapon-search-option:last-child {
+  border-bottom: 0;
+}
+
+.weapon-search-option:hover {
+  background: #1e293b;
+}
+
+.weapon-search-empty {
+  color: #9ca3af;
+  padding: 0.75rem;
+}
+
+.weapon-submit {
+  width: fit-content;
+  border: 1px solid #0f766e;
+  background: #115e59;
+  color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.weapon-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.weapon-board {
+  width: 100%;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.weapon-board-header,
+.weapon-board-row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1.6fr) repeat(4, minmax(5rem, 1fr));
+  gap: 0.35rem;
+}
+
+.weapon-board-header {
+  color: #9ca3af;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.weapon-cell {
+  border-radius: 0.45rem;
+  border: 1px solid #374151;
+  background: #111827;
+  color: #f9fafb;
+  min-height: 2.5rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.84rem;
+}
+
+.weapon-name-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weapon-name-thumb {
+  width: 3.1rem;
+  height: 3.1rem;
+  object-fit: contain;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weapon-cell--correct {
+  border-color: #15803d;
+  background: #166534;
+}
+
+.weapon-cell--close {
+  border-color: #b45309;
+  background: #a16207;
+}
+
+.weapon-cell--wrong {
+  border-color: #b91c1c;
+  background: #991b1b;
+}
+
+.weapon-cell--empty {
+  color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .weapon-board {
+    overflow-x: auto;
+  }
+
+  .weapon-board-header,
+  .weapon-board-row {
+    min-width: 760px;
+  }
+}
