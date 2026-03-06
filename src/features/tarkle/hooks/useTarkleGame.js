@@ -340,6 +340,7 @@ export function useTarkleGame(mode = 'unlimited') {
   return {
     attempts: attemptsWithRemaining,
     weaponBank,
+    solution,
     selectedWeaponId,
     setSelectedWeaponId,
     submitGuess,

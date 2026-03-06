@@ -4,7 +4,7 @@ function HomePage({ onSelectMode, onOpenPrivacy, onOpenTerms }) {
   return (
     <section className="home-landing">
       <h1 className="home-title">Tarkle</h1>
-      <p className="home-subtitle">Choose your mode and guess the Tarkov weapon.</p>
+      <p className="home-subtitle">Choose your mode and guess the Tarkov weapon or ammo.</p>
 
       <AdSlot label="Sponsored" minHeight={130} slot="1000000001" />
 
@@ -30,6 +30,30 @@ function HomePage({ onSelectMode, onOpenPrivacy, onOpenTerms }) {
             type="button"
           >
             Play Unlimited
+          </button>
+        </article>
+
+        <article className="home-mode-card">
+          <h2>Ammo Of The Day</h2>
+          <p>One fixed daily ammo round. One run per day.</p>
+          <button
+            className="home-mode-button"
+            onClick={() => onSelectMode('ammo-daily')}
+            type="button"
+          >
+            Play Ammo Daily
+          </button>
+        </article>
+
+        <article className="home-mode-card">
+          <h2>Ammo Unlimited</h2>
+          <p>See a mystery round image and guess ammo with unlimited rounds.</p>
+          <button
+            className="home-mode-button"
+            onClick={() => onSelectMode('ammo-unlimited')}
+            type="button"
+          >
+            Play Ammo Unlimited
           </button>
         </article>
       </div>

@@ -1,26 +1,27 @@
 import AdSlot from '../features/ads/AdSlot'
+import AmmoGuessBoard from '../features/tarkle/components/AmmoGuessBoard'
+import AmmoSearchSelect from '../features/tarkle/components/AmmoSearchSelect'
 import GameHeader from '../features/tarkle/components/GameHeader'
 import GameResultModal from '../features/tarkle/components/GameResultModal'
-import WeaponGuessBoard from '../features/tarkle/components/WeaponGuessBoard'
-import WeaponSearchSelect from '../features/tarkle/components/WeaponSearchSelect'
-import { useTarkleGame } from '../features/tarkle/hooks/useTarkleGame'
+import { useAmmoGame } from '../features/tarkle/hooks/useAmmoGame'
 import '../features/tarkle/Tarkle.css'
 
-function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
+function AmmoGamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
   const {
     attempts,
-    weaponBank,
-    selectedWeaponId,
-    setSelectedWeaponId,
+    ammoBank,
+    selectedAmmoId,
+    setSelectedAmmoId,
     submitGuess,
     canSubmit,
     status,
     message,
     resetGame,
     solution,
-  } = useTarkleGame(mode)
+  } = useAmmoGame(mode)
 
-  const isDailyMode = mode === 'daily'
+  const isDailyMode = mode === 'ammo-daily'
+
   const isResultModalOpen = status === 'won' || status === 'lost'
 
   const handlePlayAgain = () => {
@@ -44,30 +45,31 @@ function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
         onReset={resetGame}
         showReset={!isDailyMode}
         status={status}
+        subtitle="Guess the Tarkov ammo by caliber and ballistic stats"
       />
 
+      <section className="ammo-clue" aria-label="Target ammo image">
+        <p className="ammo-clue-label">Target round</p>
+        <img alt="Mystery ammo round" className="ammo-clue-image" src={solution?.imageUrl} />
+      </section>
+
       <div className="weapon-controls">
-        <label className="weapon-select-label" htmlFor="weapon-search-input">
-          Guess a weapon
+        <label className="weapon-select-label" htmlFor="ammo-search-input">
+          Guess the ammo
         </label>
-        <WeaponSearchSelect
+        <AmmoSearchSelect
+          ammoBank={ammoBank}
           disabled={status !== 'playing'}
-          inputId="weapon-search-input"
-          onSelectWeapon={setSelectedWeaponId}
-          selectedWeaponId={selectedWeaponId}
-          weapons={weaponBank}
+          inputId="ammo-search-input"
+          onSelectAmmo={setSelectedAmmoId}
+          selectedAmmoId={selectedAmmoId}
         />
-        <button
-          className="weapon-submit"
-          disabled={!canSubmit}
-          onClick={submitGuess}
-          type="button"
-        >
+        <button className="weapon-submit" disabled={!canSubmit} onClick={submitGuess} type="button">
           Submit Guess
         </button>
       </div>
 
-      <WeaponGuessBoard attempts={attempts} />
+      <AmmoGuessBoard attempts={attempts} />
 
       <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
 
@@ -86,10 +88,10 @@ function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
         onPlayAgain={handlePlayAgain}
         solutionName={solution?.name || 'Unknown'}
         status={status}
-        answerLabel="Correct weapon"
+        answerLabel="Correct ammo"
       />
     </section>
   )
 }
 
-export default GamePage
+export default AmmoGamePage

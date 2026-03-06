@@ -16,6 +16,20 @@
   font-size: clamp(2rem, 4vw, 2.75rem);
 }
 
+.tarkle-title-button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.tarkle-title-button:hover {
+  text-decoration: underline;
+}
+
 .tarkle-subtitle {
   margin: 0;
   color: #d1d5db;
@@ -123,6 +137,10 @@
   background: #1e293b;
 }
 
+.ammo-search-option {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .weapon-search-empty {
   color: #9ca3af;
   padding: 0.75rem;
@@ -142,6 +160,50 @@
 .weapon-submit:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+.ammo-clue {
+  border: 1px solid #334155;
+  background: #0b1220;
+  border-radius: 0.65rem;
+  padding: 0.85rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.ammo-clue-label {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ammo-clue-image {
+  width: min(260px, 100%);
+  max-height: 130px;
+  object-fit: contain;
+}
+
+.ammo-board {
+  width: 100%;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ammo-board-header,
+.ammo-board-row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1.8fr) repeat(5, minmax(4.3rem, 1fr));
+  gap: 0.35rem;
+}
+
+.ammo-board-header {
+  color: #9ca3af;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .weapon-board {
@@ -212,13 +274,206 @@
   color: #6b7280;
 }
 
+.result-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(2, 6, 23, 0.68);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  animation: result-backdrop-fade 1.2s ease;
+}
+
+.result-modal {
+  position: relative;
+  overflow: hidden;
+  width: min(28rem, 100%);
+  border-radius: 0.85rem;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #f8fafc;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  padding: 1.2rem;
+  display: grid;
+  gap: 0.85rem;
+  transform-origin: center center;
+  animation: result-modal-enter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.result-modal-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.result-sparkle {
+  position: absolute;
+  color: #fde68a;
+  text-shadow: 0 0 12px rgba(252, 211, 77, 0.8);
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  animation: result-sparkle-pop 1.6s ease-out infinite;
+}
+
+.result-sparkle--1 {
+  top: 10%;
+  left: 10%;
+  font-size: 0.9rem;
+  animation-delay: 0s;
+}
+
+.result-sparkle--2 {
+  top: 14%;
+  right: 12%;
+  font-size: 1rem;
+  animation-delay: 0.25s;
+}
+
+.result-sparkle--3 {
+  top: 32%;
+  left: 6%;
+  font-size: 0.8rem;
+  animation-delay: 0.45s;
+}
+
+.result-sparkle--4 {
+  top: 40%;
+  right: 8%;
+  font-size: 0.95rem;
+  animation-delay: 0.7s;
+}
+
+.result-sparkle--5 {
+  bottom: 24%;
+  left: 14%;
+  font-size: 0.85rem;
+  animation-delay: 0.15s;
+}
+
+.result-sparkle--6 {
+  bottom: 18%;
+  right: 14%;
+  font-size: 1.05rem;
+  animation-delay: 0.55s;
+}
+
+.result-sparkle--7 {
+  bottom: 9%;
+  left: 48%;
+  font-size: 0.75rem;
+  animation-delay: 0.9s;
+}
+
+.result-modal-title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.result-modal-text {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.result-modal-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.result-modal-button {
+  border: 1px solid #475569;
+  background: #1e293b;
+  color: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.result-modal-button--primary {
+  border-color: #0f766e;
+  background: #115e59;
+}
+
+@keyframes result-backdrop-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes result-modal-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.78);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes result-sparkle-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.45) rotate(0deg);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1.25) rotate(25deg);
+  }
+
+  70% {
+    opacity: 0.75;
+    transform: scale(0.95) rotate(-12deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-modal-backdrop,
+  .result-modal,
+  .result-sparkle {
+    animation: none;
+  }
+}
+
 @media (max-width: 900px) {
   .weapon-board {
+    overflow-x: auto;
+  }
+
+  .ammo-board {
     overflow-x: auto;
   }
 
   .weapon-board-header,
   .weapon-board-row {
     min-width: 760px;
+  }
+
+  .ammo-board-header,
+  .ammo-board-row {
+    min-width: 860px;
+  }
+
+  .result-modal-button {
+    flex: 1;
   }
 }
