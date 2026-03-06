@@ -94,6 +94,7 @@ function AppShell() {
         <GamePage
           mode={selectedMode}
           onBackHome={handleBackHome}
+          onPlayWeaponUnlimited={() => navigateTo('/weapon/unlimited')}
           onOpenPrivacy={() => navigateTo('/privacy')}
           onOpenTerms={() => navigateTo('/terms')}
         />
@@ -103,6 +104,7 @@ function AppShell() {
         <AmmoGamePage
           mode={selectedMode}
           onBackHome={handleBackHome}
+          onPlayAmmoUnlimited={() => navigateTo('/ammo/unlimited')}
           onOpenPrivacy={() => navigateTo('/privacy')}
           onOpenTerms={() => navigateTo('/terms')}
         />

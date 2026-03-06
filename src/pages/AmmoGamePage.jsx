@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import AdSlot from '../features/ads/AdSlot'
 import AmmoGuessBoard from '../features/tarkle/components/AmmoGuessBoard'
 import AmmoSearchSelect from '../features/tarkle/components/AmmoSearchSelect'
@@ -6,7 +7,13 @@ import GameResultModal from '../features/tarkle/components/GameResultModal'
 import { useAmmoGame } from '../features/tarkle/hooks/useAmmoGame'
 import '../features/tarkle/Tarkle.css'
 
-function AmmoGamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
+function AmmoGamePage({
+  mode,
+  onBackHome,
+  onOpenPrivacy,
+  onOpenTerms,
+  onPlayAmmoUnlimited,
+}) {
   const {
     attempts,
     ammoBank,
@@ -21,15 +28,18 @@ function AmmoGamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
   } = useAmmoGame(mode)
 
   const isDailyMode = mode === 'ammo-daily'
+  const [isResultDismissed, setIsResultDismissed] = useState(false)
+  const guessCount = attempts.filter((attempt) => !attempt.isEmpty).length
 
-  const isResultModalOpen = status === 'won' || status === 'lost'
+  const isResultModalOpen = (status === 'won' || status === 'lost') && !isResultDismissed
 
   const handlePlayAgain = () => {
     if (isDailyMode) {
-      onBackHome()
+      onPlayAmmoUnlimited()
       return
     }
 
+    setIsResultDismissed(false)
     resetGame()
   }
 
@@ -86,9 +96,15 @@ function AmmoGamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
         isOpen={isResultModalOpen}
         onHome={handleHome}
         onPlayAgain={handlePlayAgain}
+        onDismiss={() => setIsResultDismissed(true)}
         solutionName={solution?.name || 'Unknown'}
         status={status}
         answerLabel="Correct ammo"
+        primaryActionLabel={isDailyMode ? 'Play Unlimited' : 'Play Again'}
+        winSummary={`You correctly guessed it in ${guessCount} attempts!`}
+        followUpMessage={
+          isDailyMode ? 'Come back tomorrow to play Daily again.' : ''
+        }
       />
     </section>
   )

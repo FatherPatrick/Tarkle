@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import AdSlot from '../features/ads/AdSlot'
 import GameHeader from '../features/tarkle/components/GameHeader'
 import GameResultModal from '../features/tarkle/components/GameResultModal'
@@ -6,7 +7,13 @@ import WeaponSearchSelect from '../features/tarkle/components/WeaponSearchSelect
 import { useTarkleGame } from '../features/tarkle/hooks/useTarkleGame'
 import '../features/tarkle/Tarkle.css'
 
-function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
+function GamePage({
+  mode,
+  onBackHome,
+  onOpenPrivacy,
+  onOpenTerms,
+  onPlayWeaponUnlimited,
+}) {
   const {
     attempts,
     weaponBank,
@@ -21,14 +28,17 @@ function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
   } = useTarkleGame(mode)
 
   const isDailyMode = mode === 'daily'
-  const isResultModalOpen = status === 'won' || status === 'lost'
+  const [isResultDismissed, setIsResultDismissed] = useState(false)
+  const isResultModalOpen = (status === 'won' || status === 'lost') && !isResultDismissed
+  const guessCount = attempts.filter((attempt) => !attempt.isEmpty).length
 
   const handlePlayAgain = () => {
     if (isDailyMode) {
-      onBackHome()
+      onPlayWeaponUnlimited()
       return
     }
 
+    setIsResultDismissed(false)
     resetGame()
   }
 
@@ -84,9 +94,15 @@ function GamePage({ mode, onBackHome, onOpenPrivacy, onOpenTerms }) {
         isOpen={isResultModalOpen}
         onHome={handleHome}
         onPlayAgain={handlePlayAgain}
+        onDismiss={() => setIsResultDismissed(true)}
         solutionName={solution?.name || 'Unknown'}
         status={status}
         answerLabel="Correct weapon"
+        primaryActionLabel={isDailyMode ? 'Play Unlimited' : 'Play Again'}
+        winSummary={`You correctly guessed it in ${guessCount} attempts!`}
+        followUpMessage={
+          isDailyMode ? 'Come back tomorrow to play Daily again.' : ''
+        }
       />
     </section>
   )
