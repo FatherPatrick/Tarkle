@@ -5,6 +5,15 @@ function ammoMatches(ammo, query) {
   return text.includes(query.toLowerCase())
 }
 
+function getBaseAmmoName(ammo) {
+  return ammo.shortName?.trim() || ammo.name?.trim() || 'Unknown ammo'
+}
+
+function isFlareAmmo(ammo) {
+  const text = [ammo.name, ammo.shortName].join(' ').toLowerCase()
+  return text.includes('flare') || text.includes('signal')
+}
+
 function AmmoSearchSelect({ ammoBank, selectedAmmoId, onSelectAmmo, disabled, inputId }) {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -14,6 +23,40 @@ function AmmoSearchSelect({ ammoBank, selectedAmmoId, onSelectAmmo, disabled, in
     () => ammoBank.find((ammo) => ammo.id === selectedAmmoId),
     [ammoBank, selectedAmmoId],
   )
+
+  const ammoLabelById = useMemo(() => {
+    const countsByName = new Map()
+
+    ammoBank.forEach((ammo) => {
+      const baseName = getBaseAmmoName(ammo).toLowerCase()
+      countsByName.set(baseName, (countsByName.get(baseName) || 0) + 1)
+    })
+
+    const labels = new Map()
+
+    ammoBank.forEach((ammo) => {
+      const baseName = getBaseAmmoName(ammo)
+      const duplicateCount = countsByName.get(baseName.toLowerCase()) || 0
+      const isFlare = isFlareAmmo(ammo)
+
+      const labelDetails = []
+
+      if (duplicateCount > 1) {
+        labelDetails.push(ammo.caliber)
+      }
+
+      if (isFlare) {
+        labelDetails.push('Flare')
+      }
+
+      labels.set(
+        ammo.id,
+        labelDetails.length ? `${baseName} (${labelDetails.join(', ')})` : baseName,
+      )
+    })
+
+    return labels
+  }, [ammoBank])
 
   const filteredAmmo = useMemo(() => {
     const trimmedQuery = query.trim()
@@ -54,7 +97,8 @@ function AmmoSearchSelect({ ammoBank, selectedAmmoId, onSelectAmmo, disabled, in
     setQuery('')
   }
 
-  const displayValue = query || selectedAmmo?.name || ''
+  const selectedLabel = selectedAmmo ? ammoLabelById.get(selectedAmmo.id) : ''
+  const displayValue = query || selectedLabel || ''
 
   return (
     <div className="weapon-search" ref={rootRef}>
@@ -66,7 +110,7 @@ function AmmoSearchSelect({ ammoBank, selectedAmmoId, onSelectAmmo, disabled, in
         disabled={disabled}
         onChange={handleInputChange}
         onFocus={handleInputFocus}
-        placeholder="Search ammo name or caliber..."
+        placeholder="Search ammo name..."
         role="combobox"
         type="text"
         value={displayValue}
@@ -82,7 +126,7 @@ function AmmoSearchSelect({ ammoBank, selectedAmmoId, onSelectAmmo, disabled, in
                 onClick={() => handleAmmoPick(ammo.id)}
                 type="button"
               >
-                <span>{ammo.name}</span>
+                <span>{ammoLabelById.get(ammo.id)}</span>
               </button>
             ))
           ) : (

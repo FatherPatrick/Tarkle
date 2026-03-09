@@ -25,6 +25,7 @@ function GamePage({
     message,
     resetGame,
     solution,
+    hotStreakDays,
   } = useTarkleGame(mode)
 
   const isDailyMode = mode === 'daily'
@@ -100,6 +101,11 @@ function GamePage({
         answerLabel="Correct weapon"
         primaryActionLabel={isDailyMode ? 'Play Unlimited' : 'Play Again'}
         winSummary={`You correctly guessed it in ${guessCount} attempts!`}
+        streakSummary={
+          isDailyMode && hotStreakDays > 0
+            ? `Hot streak: ${hotStreakDays} day${hotStreakDays === 1 ? '' : 's'}`
+            : ''
+        }
         followUpMessage={
           isDailyMode ? 'Come back tomorrow to play Daily again.' : ''
         }

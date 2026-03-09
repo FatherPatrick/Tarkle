@@ -9,9 +9,16 @@ import { evaluateWeaponGuess } from '../utils/evaluateWeaponGuess'
 
 const DAILY_ATTEMPT_KEY = 'tarkle-daily-attempt-date'
 const DAILY_STATE_KEY = 'tarkle-daily-state'
+const DAILY_STREAK_KEY = 'tarkle-daily-win-streak'
 
 function getTodayKey() {
   return new Date().toISOString().slice(0, 10)
+}
+
+function getPreviousDayKey(dateKey) {
+  const date = new Date(`${dateKey}T00:00:00Z`)
+  date.setUTCDate(date.getUTCDate() - 1)
+  return date.toISOString().slice(0, 10)
 }
 
 function hashSeed(input) {
@@ -52,6 +59,56 @@ function readDailyState() {
 
 function writeDailyState(state) {
   localStorage.setItem(DAILY_STATE_KEY, JSON.stringify(state))
+}
+
+function readDailyStreak() {
+  try {
+    const rawStreak = localStorage.getItem(DAILY_STREAK_KEY)
+
+    if (!rawStreak) {
+      return {
+        count: 0,
+        lastWinDate: null,
+      }
+    }
+
+    const parsed = JSON.parse(rawStreak)
+
+    return {
+      count: Number.isInteger(parsed?.count) ? parsed.count : 0,
+      lastWinDate:
+        typeof parsed?.lastWinDate === 'string' ? parsed.lastWinDate : null,
+    }
+  } catch {
+    return {
+      count: 0,
+      lastWinDate: null,
+    }
+  }
+}
+
+function writeDailyStreak(streak) {
+  localStorage.setItem(DAILY_STREAK_KEY, JSON.stringify(streak))
+}
+
+function calculateNextWinStreak(dateKey) {
+  const currentStreak = readDailyStreak()
+
+  if (currentStreak.lastWinDate === dateKey) {
+    return currentStreak
+  }
+
+  if (currentStreak.lastWinDate === getPreviousDayKey(dateKey)) {
+    return {
+      count: currentStreak.count + 1,
+      lastWinDate: dateKey,
+    }
+  }
+
+  return {
+    count: 1,
+    lastWinDate: dateKey,
+  }
 }
 
 function buildAttemptsFromIds(guessedWeaponIds, bank, solution) {
@@ -148,6 +205,7 @@ export function useTarkleGame(mode = 'unlimited') {
   const [message, setMessage] = useState('Choose a weapon and submit your guess.')
   const [isLoadingWeapons, setIsLoadingWeapons] = useState(false)
   const [isDailyLocked, setIsDailyLocked] = useState(false)
+  const [hotStreakDays, setHotStreakDays] = useState(0)
 
   const canSubmit =
     status === 'playing' &&
@@ -160,6 +218,7 @@ export function useTarkleGame(mode = 'unlimited') {
     const todayKey = getTodayKey()
 
     if (isDailyMode) {
+      setHotStreakDays(readDailyStreak().count)
       const dailySession = resolveDailySession(FALLBACK_WEAPON_BANK, todayKey)
 
       setSolution(dailySession.solution)
@@ -183,6 +242,7 @@ export function useTarkleGame(mode = 'unlimited') {
           setWeaponBank(sortedWeapons)
 
           if (isDailyMode) {
+            setHotStreakDays(readDailyStreak().count)
             const dailySession = resolveDailySession(sortedWeapons, todayKey)
 
             setSolution(dailySession.solution)
@@ -205,6 +265,7 @@ export function useTarkleGame(mode = 'unlimited') {
           }
 
           if (isDailyMode) {
+            setHotStreakDays(readDailyStreak().count)
             const dailySession = resolveDailySession(FALLBACK_WEAPON_BANK, todayKey)
 
             setSolution(dailySession.solution)
@@ -277,6 +338,10 @@ export function useTarkleGame(mode = 'unlimited') {
       setMessage(`Correct. It was ${solution.name}.`)
 
       if (isDailyMode) {
+        const nextStreak = calculateNextWinStreak(todayKey)
+        writeDailyStreak(nextStreak)
+        setHotStreakDays(nextStreak.count)
+
         writeDailyState({
           date: todayKey,
           solutionId: solution.id,
@@ -296,6 +361,9 @@ export function useTarkleGame(mode = 'unlimited') {
       setMessage(`Out of guesses. The answer was ${solution.name}.`)
 
       if (isDailyMode) {
+        writeDailyStreak({ count: 0, lastWinDate: null })
+        setHotStreakDays(0)
+
         writeDailyState({
           date: todayKey,
           solutionId: solution.id,
@@ -349,5 +417,6 @@ export function useTarkleGame(mode = 'unlimited') {
     message,
     isLoadingWeapons,
     resetGame,
+    hotStreakDays,
   }
 }

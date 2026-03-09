@@ -9,6 +9,7 @@ function GameResultModal({
   primaryActionLabel = 'Play Again',
   followUpMessage = '',
   winSummary = '',
+  streakSummary = '',
 }) {
   if (!isOpen) {
     return null
@@ -41,6 +42,7 @@ function GameResultModal({
           {answerLabel}: {solutionName}
         </p>
         {didWin && winSummary ? <p className="result-modal-text">{winSummary}</p> : null}
+        {streakSummary ? <p className="result-modal-note">{streakSummary}</p> : null}
         {followUpMessage ? <p className="result-modal-note">{followUpMessage}</p> : null}
         <div className="result-modal-actions">
           <button className="result-modal-button" onClick={onHome} type="button">

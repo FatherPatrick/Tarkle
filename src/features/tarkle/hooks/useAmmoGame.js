@@ -9,9 +9,16 @@ import { fetchTarkovAmmoBank } from '../utils/fetchTarkovAmmoBank'
 
 const DAILY_AMMO_ATTEMPT_KEY = 'tarkle-ammo-daily-attempt-date'
 const DAILY_AMMO_STATE_KEY = 'tarkle-ammo-daily-state'
+const DAILY_AMMO_STREAK_KEY = 'tarkle-ammo-daily-win-streak'
 
 function getTodayKey() {
   return new Date().toISOString().slice(0, 10)
+}
+
+function getPreviousDayKey(dateKey) {
+  const date = new Date(`${dateKey}T00:00:00Z`)
+  date.setUTCDate(date.getUTCDate() - 1)
+  return date.toISOString().slice(0, 10)
 }
 
 function hashSeed(input) {
@@ -44,6 +51,56 @@ function readDailyAmmoState() {
 
 function writeDailyAmmoState(state) {
   localStorage.setItem(DAILY_AMMO_STATE_KEY, JSON.stringify(state))
+}
+
+function readDailyAmmoStreak() {
+  try {
+    const rawStreak = localStorage.getItem(DAILY_AMMO_STREAK_KEY)
+
+    if (!rawStreak) {
+      return {
+        count: 0,
+        lastWinDate: null,
+      }
+    }
+
+    const parsed = JSON.parse(rawStreak)
+
+    return {
+      count: Number.isInteger(parsed?.count) ? parsed.count : 0,
+      lastWinDate:
+        typeof parsed?.lastWinDate === 'string' ? parsed.lastWinDate : null,
+    }
+  } catch {
+    return {
+      count: 0,
+      lastWinDate: null,
+    }
+  }
+}
+
+function writeDailyAmmoStreak(streak) {
+  localStorage.setItem(DAILY_AMMO_STREAK_KEY, JSON.stringify(streak))
+}
+
+function calculateNextAmmoWinStreak(dateKey) {
+  const currentStreak = readDailyAmmoStreak()
+
+  if (currentStreak.lastWinDate === dateKey) {
+    return currentStreak
+  }
+
+  if (currentStreak.lastWinDate === getPreviousDayKey(dateKey)) {
+    return {
+      count: currentStreak.count + 1,
+      lastWinDate: dateKey,
+    }
+  }
+
+  return {
+    count: 1,
+    lastWinDate: dateKey,
+  }
 }
 
 function buildAmmoAttemptsFromIds(guessedAmmoIds, bank, solution) {
@@ -154,6 +211,7 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
   const [message, setMessage] = useState('Guess the ammo by its stats.')
   const [isLoadingAmmo, setIsLoadingAmmo] = useState(false)
   const [isDailyLocked, setIsDailyLocked] = useState(false)
+  const [hotStreakDays, setHotStreakDays] = useState(0)
 
   const canSubmit =
     status === 'playing' &&
@@ -166,6 +224,7 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
     const todayKey = getTodayKey()
 
     if (isDailyMode) {
+      setHotStreakDays(readDailyAmmoStreak().count)
       const dailySession = resolveDailyAmmoSession(FALLBACK_AMMO_BANK, todayKey)
 
       setSolution(dailySession.solution)
@@ -187,6 +246,7 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
           setAmmoBank(sortedAmmo)
 
           if (isDailyMode) {
+            setHotStreakDays(readDailyAmmoStreak().count)
             const dailySession = resolveDailyAmmoSession(sortedAmmo, todayKey)
 
             setSolution(dailySession.solution)
@@ -209,6 +269,7 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
           }
 
           if (isDailyMode) {
+            setHotStreakDays(readDailyAmmoStreak().count)
             const dailySession = resolveDailyAmmoSession(FALLBACK_AMMO_BANK, todayKey)
 
             setSolution(dailySession.solution)
@@ -290,6 +351,10 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
       setMessage(`Correct. It was ${solution.name}.`)
 
       if (isDailyMode) {
+        const nextStreak = calculateNextAmmoWinStreak(todayKey)
+        writeDailyAmmoStreak(nextStreak)
+        setHotStreakDays(nextStreak.count)
+
         writeDailyAmmoState({
           date: todayKey,
           solutionId: solution.id,
@@ -309,6 +374,9 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
       setMessage(`Out of guesses. The answer was ${solution.name}.`)
 
       if (isDailyMode) {
+        writeDailyAmmoStreak({ count: 0, lastWinDate: null })
+        setHotStreakDays(0)
+
         writeDailyAmmoState({
           date: todayKey,
           solutionId: solution.id,
@@ -363,5 +431,6 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
     message,
     isLoadingAmmo,
     resetGame,
+    hotStreakDays,
   }
 }
