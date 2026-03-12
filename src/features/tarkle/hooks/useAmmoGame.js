@@ -421,6 +421,8 @@ export function useAmmoGame(mode = 'ammo-unlimited') {
 
   return {
     attempts: attemptsWithRemaining,
+    guessCount: attempts.length,
+    guessesRemaining: MAX_AMMO_ATTEMPTS - attempts.length,
     ammoBank,
     solution,
     selectedAmmoId,

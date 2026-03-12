@@ -407,6 +407,8 @@ export function useTarkleGame(mode = 'unlimited') {
 
   return {
     attempts: attemptsWithRemaining,
+    guessCount: attempts.length,
+    guessesRemaining: MAX_ATTEMPTS - attempts.length,
     weaponBank,
     solution,
     selectedWeaponId,

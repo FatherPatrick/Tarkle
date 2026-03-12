@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AdSlot from '../features/ads/AdSlot'
+import ConfirmLeaveModal from '../app/components/ConfirmLeaveModal'
 import GameHeader from '../features/tarkle/components/GameHeader'
 import GameResultModal from '../features/tarkle/components/GameResultModal'
 import WeaponGuessBoard from '../features/tarkle/components/WeaponGuessBoard'
@@ -10,10 +11,13 @@ import '../features/tarkle/Tarkle.css'
 function GamePage({
   mode,
   onBackHome,
+  onHasProgressChange,
   onPlayWeaponUnlimited,
 }) {
   const {
     attempts,
+    guessCount,
+    guessesRemaining,
     weaponBank,
     selectedWeaponId,
     setSelectedWeaponId,
@@ -29,8 +33,19 @@ function GamePage({
   const isDailyMode = mode === 'daily'
   const modeTitle = isDailyMode ? 'Tarkle Daily' : 'Tarkle Unlimited'
   const [isResultDismissed, setIsResultDismissed] = useState(false)
+  const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false)
   const isResultModalOpen = (status === 'won' || status === 'lost') && !isResultDismissed
-  const guessCount = attempts.filter((attempt) => !attempt.isEmpty).length
+  const shouldConfirmLeave = status === 'playing' && guessesRemaining <= 5
+
+  useEffect(() => {
+    onHasProgressChange(shouldConfirmLeave)
+  }, [onHasProgressChange, shouldConfirmLeave])
+
+  useEffect(() => {
+    return () => {
+      onHasProgressChange(false)
+    }
+  }, [onHasProgressChange])
 
   const handlePlayAgain = () => {
     if (isDailyMode) {
@@ -38,6 +53,21 @@ function GamePage({
       return
     }
 
+    setIsResultDismissed(false)
+    resetGame()
+  }
+
+  const handleRequestReset = () => {
+    if (shouldConfirmLeave) {
+      setIsResetConfirmOpen(true)
+      return
+    }
+
+    resetGame()
+  }
+
+  const handleConfirmReset = () => {
+    setIsResetConfirmOpen(false)
     setIsResultDismissed(false)
     resetGame()
   }
@@ -51,7 +81,7 @@ function GamePage({
       <GameHeader
         message={message}
         onBackHome={onBackHome}
-        onReset={resetGame}
+        onReset={handleRequestReset}
         showReset={!isDailyMode}
         status={status}
         title={modeTitle}
@@ -101,6 +131,14 @@ function GamePage({
         followUpMessage={
           isDailyMode ? 'Come back tomorrow to play Daily again.' : ''
         }
+      />
+
+      <ConfirmLeaveModal
+        isOpen={isResetConfirmOpen}
+        title="Start A New Game?"
+        confirmLabel="Start New Game"
+        onCancel={() => setIsResetConfirmOpen(false)}
+        onConfirm={handleConfirmReset}
       />
     </section>
   )

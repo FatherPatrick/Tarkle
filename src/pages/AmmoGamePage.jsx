@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AdSlot from '../features/ads/AdSlot'
+import ConfirmLeaveModal from '../app/components/ConfirmLeaveModal'
 import AmmoGuessBoard from '../features/tarkle/components/AmmoGuessBoard'
 import AmmoSearchSelect from '../features/tarkle/components/AmmoSearchSelect'
 import GameHeader from '../features/tarkle/components/GameHeader'
@@ -10,10 +11,13 @@ import '../features/tarkle/Tarkle.css'
 function AmmoGamePage({
   mode,
   onBackHome,
+  onHasProgressChange,
   onPlayAmmoUnlimited,
 }) {
   const {
     attempts,
+    guessCount,
+    guessesRemaining,
     ammoBank,
     selectedAmmoId,
     setSelectedAmmoId,
@@ -29,9 +33,20 @@ function AmmoGamePage({
   const isDailyMode = mode === 'ammo-daily'
   const modeTitle = isDailyMode ? 'Ammo Guess Daily' : 'Ammo Guess Unlimited'
   const [isResultDismissed, setIsResultDismissed] = useState(false)
-  const guessCount = attempts.filter((attempt) => !attempt.isEmpty).length
+  const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false)
+  const shouldConfirmLeave = status === 'playing' && guessesRemaining <= 5
 
   const isResultModalOpen = (status === 'won' || status === 'lost') && !isResultDismissed
+
+  useEffect(() => {
+    onHasProgressChange(shouldConfirmLeave)
+  }, [onHasProgressChange, shouldConfirmLeave])
+
+  useEffect(() => {
+    return () => {
+      onHasProgressChange(false)
+    }
+  }, [onHasProgressChange])
 
   const handlePlayAgain = () => {
     if (isDailyMode) {
@@ -39,6 +54,21 @@ function AmmoGamePage({
       return
     }
 
+    setIsResultDismissed(false)
+    resetGame()
+  }
+
+  const handleRequestReset = () => {
+    if (shouldConfirmLeave) {
+      setIsResetConfirmOpen(true)
+      return
+    }
+
+    resetGame()
+  }
+
+  const handleConfirmReset = () => {
+    setIsResetConfirmOpen(false)
     setIsResultDismissed(false)
     resetGame()
   }
@@ -52,7 +82,7 @@ function AmmoGamePage({
       <GameHeader
         message={message}
         onBackHome={onBackHome}
-        onReset={resetGame}
+        onReset={handleRequestReset}
         showReset={!isDailyMode}
         status={status}
         title={modeTitle}
@@ -102,6 +132,14 @@ function AmmoGamePage({
         followUpMessage={
           isDailyMode ? 'Come back tomorrow to play Daily again.' : ''
         }
+      />
+
+      <ConfirmLeaveModal
+        isOpen={isResetConfirmOpen}
+        title="Start A New Game?"
+        confirmLabel="Start New Game"
+        onCancel={() => setIsResetConfirmOpen(false)}
+        onConfirm={handleConfirmReset}
       />
     </section>
   )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import HomePage from '../pages/HomePage'
 import GamePage from '../pages/GamePage'
 import AmmoGamePage from '../pages/AmmoGamePage'
@@ -6,6 +6,7 @@ import PrivacyPage from '../pages/PrivacyPage'
 import TermsPage from '../pages/TermsPage'
 import SiteBrand from './components/SiteBrand'
 import LegalLinks from './components/LegalLinks'
+import ConfirmLeaveModal from './components/ConfirmLeaveModal'
 
 const MODE_TO_PATH = {
   daily: '/weapon/daily',
@@ -44,6 +45,11 @@ function getRouteFromPath(pathname) {
 
 function AppShell() {
   const [route, setRoute] = useState(() => getRouteFromPath(window.location.pathname))
+  const [hasGameProgress, setHasGameProgress] = useState(false)
+  const [pendingNavigation, setPendingNavigation] = useState(null)
+  const hasGameProgressRef = useRef(false)
+
+  const isGamePath = (path) => path.startsWith('/weapon/') || path.startsWith('/ammo/')
 
   const navigateTo = (nextPath, options = {}) => {
     const shouldReplace = options.replace === true
@@ -59,6 +65,22 @@ function AppShell() {
     setRoute(getRouteFromPath(nextPath))
   }
 
+  const requestNavigate = (nextPath, options = {}) => {
+    const currentPath = window.location.pathname
+    const isLeavingActiveGame =
+      hasGameProgressRef.current &&
+      isGamePath(currentPath) &&
+      !isGamePath(nextPath) &&
+      currentPath !== nextPath
+
+    if (isLeavingActiveGame) {
+      setPendingNavigation({ nextPath, options })
+      return
+    }
+
+    navigateTo(nextPath, options)
+  }
+
   useEffect(() => {
     function handlePopState() {
       setRoute(getRouteFromPath(window.location.pathname))
@@ -71,13 +93,43 @@ function AppShell() {
     }
   }, [])
 
+  useEffect(() => {
+    hasGameProgressRef.current = hasGameProgress
+  }, [hasGameProgress])
+
+  useEffect(() => {
+    if (route.view !== 'game' && hasGameProgress) {
+      setHasGameProgress(false)
+    }
+  }, [route.view, hasGameProgress])
+
+  const handleHasProgressChange = useCallback((nextHasProgress) => {
+    hasGameProgressRef.current = nextHasProgress
+    setHasGameProgress(nextHasProgress)
+  }, [])
+
   const handleSelectMode = (mode) => {
     const targetPath = MODE_TO_PATH[mode] || '/'
-    navigateTo(targetPath)
+    requestNavigate(targetPath)
   }
 
   const handleBackHome = () => {
-    navigateTo('/')
+    requestNavigate('/')
+  }
+
+  const handleConfirmLeave = () => {
+    if (!pendingNavigation) {
+      return
+    }
+
+    const { nextPath, options } = pendingNavigation
+    setPendingNavigation(null)
+    setHasGameProgress(false)
+    navigateTo(nextPath, options)
+  }
+
+  const handleCancelLeave = () => {
+    setPendingNavigation(null)
   }
 
   const { view, selectedMode } = route
@@ -94,7 +146,8 @@ function AppShell() {
         <GamePage
           mode={selectedMode}
           onBackHome={handleBackHome}
-          onPlayWeaponUnlimited={() => navigateTo('/weapon/unlimited')}
+          onHasProgressChange={handleHasProgressChange}
+          onPlayWeaponUnlimited={() => requestNavigate('/weapon/unlimited')}
         />
       ) : null}
 
@@ -102,7 +155,8 @@ function AppShell() {
         <AmmoGamePage
           mode={selectedMode}
           onBackHome={handleBackHome}
-          onPlayAmmoUnlimited={() => navigateTo('/ammo/unlimited')}
+          onHasProgressChange={handleHasProgressChange}
+          onPlayAmmoUnlimited={() => requestNavigate('/ammo/unlimited')}
         />
       ) : null}
 
@@ -110,8 +164,14 @@ function AppShell() {
       {view === 'terms' ? <TermsPage onBackHome={handleBackHome} /> : null}
 
       <LegalLinks
-        onOpenPrivacy={() => navigateTo('/privacy')}
-        onOpenTerms={() => navigateTo('/terms')}
+        onOpenPrivacy={() => requestNavigate('/privacy')}
+        onOpenTerms={() => requestNavigate('/terms')}
+      />
+
+      <ConfirmLeaveModal
+        isOpen={pendingNavigation !== null}
+        onCancel={handleCancelLeave}
+        onConfirm={handleConfirmLeave}
       />
     </main>
   )
