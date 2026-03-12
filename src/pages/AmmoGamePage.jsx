@@ -10,8 +10,6 @@ import '../features/tarkle/Tarkle.css'
 function AmmoGamePage({
   mode,
   onBackHome,
-  onOpenPrivacy,
-  onOpenTerms,
   onPlayAmmoUnlimited,
 }) {
   const {
@@ -29,6 +27,7 @@ function AmmoGamePage({
   } = useAmmoGame(mode)
 
   const isDailyMode = mode === 'ammo-daily'
+  const modeTitle = isDailyMode ? 'Ammo Guess Daily' : 'Ammo Guess Unlimited'
   const [isResultDismissed, setIsResultDismissed] = useState(false)
   const guessCount = attempts.filter((attempt) => !attempt.isEmpty).length
 
@@ -56,6 +55,7 @@ function AmmoGamePage({
         onReset={resetGame}
         showReset={!isDailyMode}
         status={status}
+        title={modeTitle}
         subtitle="Guess the Tarkov ammo by caliber and ballistic stats"
       />
 
@@ -83,15 +83,6 @@ function AmmoGamePage({
       <AmmoGuessBoard attempts={attempts} />
 
       <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
-
-      <footer className="site-footer-links">
-        <button onClick={onOpenPrivacy} type="button">
-          Privacy
-        </button>
-        <button onClick={onOpenTerms} type="button">
-          Terms
-        </button>
-      </footer>
 
       <GameResultModal
         isOpen={isResultModalOpen}

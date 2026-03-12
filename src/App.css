@@ -5,7 +5,11 @@
 .app-shell {
   width: min(960px, 100%);
   margin: 0 auto;
-  padding: 2rem 1rem 3rem;
+  padding: 5.75rem 1rem 3rem;
+}
+
+.app-shell--game {
+  padding-top: 4.8rem;
 }
 
 .home-landing {
@@ -13,9 +17,21 @@
   gap: 1.25rem;
 }
 
-.home-title {
+.site-brand {
+  position: fixed;
+  top: 0.9rem;
+  left: 1rem;
+  z-index: 25;
   margin: 0;
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  border: 0;
+  background: transparent;
+  color: #f9fafb;
+  cursor: pointer;
+  font-size: clamp(3.1rem, 8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 .home-subtitle {
@@ -61,6 +77,15 @@
 .site-footer-links {
   display: flex;
   gap: 0.75rem;
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid #334155;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  backdrop-filter: blur(4px);
 }
 
 .site-footer-links button {
@@ -120,7 +145,26 @@
 }
 
 @media (max-width: 700px) {
+  .app-shell {
+    padding-top: 4.75rem;
+  }
+
+  .app-shell--game {
+    padding-top: 4.1rem;
+  }
+
+  .site-brand {
+    top: 0.7rem;
+    left: 0.75rem;
+    font-size: clamp(2.5rem, 10vw, 3.6rem);
+  }
+
   .home-mode-grid {
     grid-template-columns: 1fr;
+  }
+
+  .site-footer-links {
+    left: 0.75rem;
+    bottom: 0.75rem;
   }
 }

@@ -10,8 +10,6 @@ import '../features/tarkle/Tarkle.css'
 function GamePage({
   mode,
   onBackHome,
-  onOpenPrivacy,
-  onOpenTerms,
   onPlayWeaponUnlimited,
 }) {
   const {
@@ -29,6 +27,7 @@ function GamePage({
   } = useTarkleGame(mode)
 
   const isDailyMode = mode === 'daily'
+  const modeTitle = isDailyMode ? 'Tarkle Daily' : 'Tarkle Unlimited'
   const [isResultDismissed, setIsResultDismissed] = useState(false)
   const isResultModalOpen = (status === 'won' || status === 'lost') && !isResultDismissed
   const guessCount = attempts.filter((attempt) => !attempt.isEmpty).length
@@ -55,6 +54,8 @@ function GamePage({
         onReset={resetGame}
         showReset={!isDailyMode}
         status={status}
+        title={modeTitle}
+        subtitle="Guess the Tarkov weapon by stat similarity"
       />
 
       <div className="weapon-controls">
@@ -81,15 +82,6 @@ function GamePage({
       <WeaponGuessBoard attempts={attempts} />
 
       <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
-
-      <footer className="site-footer-links">
-        <button onClick={onOpenPrivacy} type="button">
-          Privacy
-        </button>
-        <button onClick={onOpenTerms} type="button">
-          Terms
-        </button>
-      </footer>
 
       <GameResultModal
         isOpen={isResultModalOpen}

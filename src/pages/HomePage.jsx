@@ -1,9 +1,8 @@
 import AdSlot from '../features/ads/AdSlot'
 
-function HomePage({ onSelectMode, onOpenPrivacy, onOpenTerms }) {
+function HomePage({ onSelectMode }) {
   return (
     <section className="home-landing">
-      <h1 className="home-title">Tarkle</h1>
       <p className="home-subtitle">Choose your mode and guess the Tarkov weapon or ammo.</p>
 
       <AdSlot label="Sponsored" minHeight={130} slot="1000000001" />
@@ -58,14 +57,6 @@ function HomePage({ onSelectMode, onOpenPrivacy, onOpenTerms }) {
         </article>
       </div>
 
-      <footer className="site-footer-links">
-        <button onClick={onOpenPrivacy} type="button">
-          Privacy
-        </button>
-        <button onClick={onOpenTerms} type="button">
-          Terms
-        </button>
-      </footer>
     </section>
   )
 }

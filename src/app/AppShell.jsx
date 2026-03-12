@@ -4,6 +4,8 @@ import GamePage from '../pages/GamePage'
 import AmmoGamePage from '../pages/AmmoGamePage'
 import PrivacyPage from '../pages/PrivacyPage'
 import TermsPage from '../pages/TermsPage'
+import SiteBrand from './components/SiteBrand'
+import LegalLinks from './components/LegalLinks'
 
 const MODE_TO_PATH = {
   daily: '/weapon/daily',
@@ -81,13 +83,11 @@ function AppShell() {
   const { view, selectedMode } = route
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell app-shell--${view}`}>
+      <SiteBrand onGoHome={handleBackHome} />
+
       {view === 'home' ? (
-        <HomePage
-          onOpenPrivacy={() => navigateTo('/privacy')}
-          onOpenTerms={() => navigateTo('/terms')}
-          onSelectMode={handleSelectMode}
-        />
+        <HomePage onSelectMode={handleSelectMode} />
       ) : null}
 
       {view === 'game' && selectedMode && !selectedMode.startsWith('ammo') ? (
@@ -95,8 +95,6 @@ function AppShell() {
           mode={selectedMode}
           onBackHome={handleBackHome}
           onPlayWeaponUnlimited={() => navigateTo('/weapon/unlimited')}
-          onOpenPrivacy={() => navigateTo('/privacy')}
-          onOpenTerms={() => navigateTo('/terms')}
         />
       ) : null}
 
@@ -105,13 +103,16 @@ function AppShell() {
           mode={selectedMode}
           onBackHome={handleBackHome}
           onPlayAmmoUnlimited={() => navigateTo('/ammo/unlimited')}
-          onOpenPrivacy={() => navigateTo('/privacy')}
-          onOpenTerms={() => navigateTo('/terms')}
         />
       ) : null}
 
       {view === 'privacy' ? <PrivacyPage onBackHome={handleBackHome} /> : null}
       {view === 'terms' ? <TermsPage onBackHome={handleBackHome} /> : null}
+
+      <LegalLinks
+        onOpenPrivacy={() => navigateTo('/privacy')}
+        onOpenTerms={() => navigateTo('/terms')}
+      />
     </main>
   )
 }
