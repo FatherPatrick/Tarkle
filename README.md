@@ -8,13 +8,6 @@ Status: In progress (created March 18, 2026)
 
 Use this checklist to track content work before submitting another AdSense review.
 
-### 4) SEO and Crawlability Essentials
-
-- [ ] Replace temporary site title/metadata in index.html
-- [ ] Add route-specific page titles and meta descriptions
-- [ ] Add stronger internal linking between game pages and guides
-- [ ] Add sitemap.xml and robots.txt (if missing)
-
 ### 5) Improve Existing Thin Pages
 
 - [ ] Expand homepage with: What is Tarkle, How to Play, Scoring Example, Recent Updates

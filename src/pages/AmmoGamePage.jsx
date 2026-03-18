@@ -112,6 +112,19 @@ function AmmoGamePage({
 
       <AmmoGuessBoard attempts={attempts} />
 
+      <section className="game-learn-links" aria-label="Related guides">
+        <h2>Improve Ammo Guess Accuracy</h2>
+        <p>
+          Use these references to speed up caliber deduction and ballistic decision making.
+        </p>
+        <div className="game-learn-links-grid">
+          <a href="/guides/ammo-stats">Ammo Stats Guide</a>
+          <a href="/guides/daily-strategy">Daily Strategy Guide</a>
+          <a href="/reference/ammo-glossary">Ammo Glossary</a>
+          <a href="/reference/how-tarkle-works">How Tarkle Works</a>
+        </div>
+      </section>
+
       <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
 
       <GameResultModal

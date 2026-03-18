@@ -175,6 +175,39 @@
   max-height: 130px;
   object-fit: contain;
 }
+.game-learn-links {
+  display: grid;
+  gap: 0.6rem;
+  border: 1px solid #334155;
+  border-radius: 0.65rem;
+  background: #0b1220;
+  padding: 0.85rem;
+}
+
+.game-learn-links h2,
+.game-learn-links p {
+  margin: 0;
+}
+
+.game-learn-links p {
+  color: #cbd5e1;
+}
+
+.game-learn-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.game-learn-links-grid a {
+  border: 1px solid #0e7490;
+  background: #164e63;
+  color: #e0f2fe;
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
 
 .ammo-board {
   width: 100%;
@@ -455,6 +488,9 @@
     overflow-x: auto;
   }
 
+  .game-learn-links-grid {
+    grid-template-columns: 1fr;
+  }
   .ammo-board {
     overflow-x: auto;
   }

@@ -111,6 +111,19 @@ function GamePage({
 
       <WeaponGuessBoard attempts={attempts} />
 
+      <section className="game-learn-links" aria-label="Related guides">
+        <h2>Improve Weapon Guess Accuracy</h2>
+        <p>
+          Learn weapon roles and faster daily deduction with these supporting references.
+        </p>
+        <div className="game-learn-links-grid">
+          <a href="/guides/weapon-family">Weapon Family Guide</a>
+          <a href="/guides/daily-strategy">Daily Strategy Guide</a>
+          <a href="/reference/weapon-stats-glossary">Weapon Stats Glossary</a>
+          <a href="/reference/how-tarkle-works">How Tarkle Works</a>
+        </div>
+      </section>
+
       <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
 
       <GameResultModal
