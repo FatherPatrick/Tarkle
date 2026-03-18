@@ -1,8 +1,8 @@
-function SiteBrand({ onGoHome }) {
+function SiteBrand() {
   return (
-    <button className="site-brand" onClick={onGoHome} type="button" aria-label="Go to home page">
+    <a className="site-brand" href="/" aria-label="Go to home page">
       Tarkle
-    </button>
+    </a>
   )
 }
 

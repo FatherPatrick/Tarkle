@@ -2,45 +2,70 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import HomePage from '../pages/HomePage'
 import GamePage from '../pages/GamePage'
 import AmmoGamePage from '../pages/AmmoGamePage'
+import AmmoStatsGuidePage from '../pages/AmmoStatsGuidePage'
+import WeaponFamilyGuidePage from '../pages/WeaponFamilyGuidePage'
+import BeginnerProgressionGuidePage from '../pages/BeginnerProgressionGuidePage'
+import DailyStrategyGuidePage from '../pages/DailyStrategyGuidePage'
+import PatchImpactNotesPage from '../pages/PatchImpactNotesPage'
+import FaqPage from '../pages/FaqPage'
+import AmmoGlossaryPage from '../pages/AmmoGlossaryPage'
+import WeaponStatsGlossaryPage from '../pages/WeaponStatsGlossaryPage'
+import HowTarkleWorksPage from '../pages/HowTarkleWorksPage'
+import DataTransparencyPage from '../pages/DataTransparencyPage'
 import PrivacyPage from '../pages/PrivacyPage'
 import TermsPage from '../pages/TermsPage'
 import SiteBrand from './components/SiteBrand'
 import LegalLinks from './components/LegalLinks'
 import ConfirmLeaveModal from './components/ConfirmLeaveModal'
 
-const MODE_TO_PATH = {
-  daily: '/weapon/daily',
-  unlimited: '/weapon/unlimited',
-  'ammo-daily': '/ammo/daily',
-  'ammo-unlimited': '/ammo/unlimited',
+const GUIDE_TO_PATH = {
+  'ammo-stats': '/guides/ammo-stats',
+  'weapon-family': '/guides/weapon-family',
+  'beginner-progression': '/guides/beginner-progression',
+  'daily-strategy': '/guides/daily-strategy',
+  'patch-impact': '/guides/patch-impact',
+  faq: '/guides/faq',
+  'ammo-glossary': '/reference/ammo-glossary',
+  'weapon-stats-glossary': '/reference/weapon-stats-glossary',
+  'how-tarkle-works': '/reference/how-tarkle-works',
+  'data-transparency': '/reference/data-transparency',
 }
 
+const PATH_TO_GUIDE = Object.entries(GUIDE_TO_PATH).reduce((acc, [guideKey, path]) => {
+  acc[path] = guideKey
+  return acc
+}, {})
+
 function getRouteFromPath(pathname) {
+  if (PATH_TO_GUIDE[pathname]) {
+    return { view: 'content', selectedMode: null, guideKey: PATH_TO_GUIDE[pathname] }
+  }
+
   if (pathname === '/privacy') {
-    return { view: 'privacy', selectedMode: null }
+    return { view: 'privacy', selectedMode: null, guideKey: null }
   }
 
   if (pathname === '/terms') {
-    return { view: 'terms', selectedMode: null }
+    return { view: 'terms', selectedMode: null, guideKey: null }
   }
 
   if (pathname === '/weapon/daily') {
-    return { view: 'game', selectedMode: 'daily' }
+    return { view: 'game', selectedMode: 'daily', guideKey: null }
   }
 
   if (pathname === '/weapon/unlimited') {
-    return { view: 'game', selectedMode: 'unlimited' }
+    return { view: 'game', selectedMode: 'unlimited', guideKey: null }
   }
 
   if (pathname === '/ammo/daily') {
-    return { view: 'game', selectedMode: 'ammo-daily' }
+    return { view: 'game', selectedMode: 'ammo-daily', guideKey: null }
   }
 
   if (pathname === '/ammo/unlimited') {
-    return { view: 'game', selectedMode: 'ammo-unlimited' }
+    return { view: 'game', selectedMode: 'ammo-unlimited', guideKey: null }
   }
 
-  return { view: 'home', selectedMode: null }
+  return { view: 'home', selectedMode: null, guideKey: null }
 }
 
 function AppShell() {
@@ -108,11 +133,6 @@ function AppShell() {
     setHasGameProgress(nextHasProgress)
   }, [])
 
-  const handleSelectMode = (mode) => {
-    const targetPath = MODE_TO_PATH[mode] || '/'
-    requestNavigate(targetPath)
-  }
-
   const handleBackHome = () => {
     requestNavigate('/')
   }
@@ -132,14 +152,14 @@ function AppShell() {
     setPendingNavigation(null)
   }
 
-  const { view, selectedMode } = route
+  const { view, selectedMode, guideKey } = route
 
   return (
     <main className={`app-shell app-shell--${view}`}>
-      <SiteBrand onGoHome={handleBackHome} />
+      <SiteBrand />
 
       {view === 'home' ? (
-        <HomePage onSelectMode={handleSelectMode} />
+        <HomePage />
       ) : null}
 
       {view === 'game' && selectedMode && !selectedMode.startsWith('ammo') ? (
@@ -163,10 +183,47 @@ function AppShell() {
       {view === 'privacy' ? <PrivacyPage onBackHome={handleBackHome} /> : null}
       {view === 'terms' ? <TermsPage onBackHome={handleBackHome} /> : null}
 
-      <LegalLinks
-        onOpenPrivacy={() => requestNavigate('/privacy')}
-        onOpenTerms={() => requestNavigate('/terms')}
-      />
+      {view === 'content' && guideKey === 'ammo-stats' ? (
+        <AmmoStatsGuidePage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'weapon-family' ? (
+        <WeaponFamilyGuidePage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'beginner-progression' ? (
+        <BeginnerProgressionGuidePage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'daily-strategy' ? (
+        <DailyStrategyGuidePage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'patch-impact' ? (
+        <PatchImpactNotesPage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'faq' ? (
+        <FaqPage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'ammo-glossary' ? (
+        <AmmoGlossaryPage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'weapon-stats-glossary' ? (
+        <WeaponStatsGlossaryPage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'how-tarkle-works' ? (
+        <HowTarkleWorksPage onBackHome={handleBackHome} />
+      ) : null}
+
+      {view === 'content' && guideKey === 'data-transparency' ? (
+        <DataTransparencyPage onBackHome={handleBackHome} />
+      ) : null}
+
+      <LegalLinks />
 
       <ConfirmLeaveModal
         isOpen={pendingNavigation !== null}

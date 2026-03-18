@@ -1,4 +1,4 @@
-function TermsPage({ onBackHome }) {
+function TermsPage() {
   return (
     <section className="legal-page">
       <h1>Terms of Use</h1>
@@ -13,9 +13,9 @@ function TermsPage({ onBackHome }) {
       <p>
         We may update these terms as the project evolves.
       </p>
-      <button className="legal-back" onClick={onBackHome} type="button">
+      <a className="legal-back" href="/">
         Back Home
-      </button>
+      </a>
     </section>
   )
 }

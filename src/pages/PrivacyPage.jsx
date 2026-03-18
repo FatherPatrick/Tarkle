@@ -1,4 +1,4 @@
-function PrivacyPage({ onBackHome }) {
+function PrivacyPage() {
   return (
     <section className="legal-page">
       <h1>Privacy Policy</h1>
@@ -15,9 +15,9 @@ function PrivacyPage({ onBackHome }) {
         We store gameplay state in your browser local storage to support daily
         progress persistence and improved user experience.
       </p>
-      <button className="legal-back" onClick={onBackHome} type="button">
+      <a className="legal-back" href="/">
         Back Home
-      </button>
+      </a>
     </section>
   )
 }

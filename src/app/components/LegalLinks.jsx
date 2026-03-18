@@ -1,12 +1,12 @@
-function LegalLinks({ onOpenPrivacy, onOpenTerms }) {
+function LegalLinks() {
   return (
     <footer className="site-footer-links" aria-label="Legal links">
-      <button onClick={onOpenPrivacy} type="button">
+      <a href="/privacy">
         Privacy
-      </button>
-      <button onClick={onOpenTerms} type="button">
+      </a>
+      <a href="/terms">
         Terms
-      </button>
+      </a>
     </footer>
   )
 }
