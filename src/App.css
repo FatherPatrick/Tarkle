@@ -40,6 +40,91 @@
   color: #9ca3af;
 }
 
+.home-info-block {
+  display: grid;
+  gap: 0.7rem;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  padding: 1rem;
+}
+
+.home-info-block h2,
+.home-info-block p,
+.home-info-block li {
+  margin: 0;
+}
+
+.home-info-block p,
+.home-info-block li {
+  color: #cbd5e1;
+}
+
+.home-update-rhythm {
+  color: #93c5fd;
+  font-size: 0.93rem;
+}
+
+.home-info-block ul,
+.home-info-block ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.home-scoring-example {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.home-scoring-row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 1.6fr) repeat(3, minmax(4rem, 1fr));
+  gap: 0.35rem;
+}
+
+.home-scoring-row--head {
+  color: #9ca3af;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.home-score-cell {
+  border-radius: 0.45rem;
+  border: 1px solid #334155;
+  background: #111827;
+  color: #f9fafb;
+  min-height: 2.2rem;
+  padding: 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.84rem;
+}
+
+.home-score-cell--name {
+  justify-content: flex-start;
+  padding-left: 0.65rem;
+}
+
+.home-score-cell--correct {
+  border-color: #15803d;
+  background: #166534;
+}
+
+.home-score-cell--close {
+  border-color: #b45309;
+  background: #a16207;
+}
+
+.home-score-cell--wrong {
+  border-color: #b91c1c;
+  background: #991b1b;
+}
+
 .home-mode-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -285,12 +370,23 @@
 }
 
 .legal-page h1,
-.legal-page p {
+.legal-page h2,
+.legal-page p,
+.legal-page li {
   margin: 0;
 }
 
-.legal-page p {
+.legal-page p,
+.legal-page li {
   color: #cbd5e1;
+}
+
+.legal-page ul,
+.legal-page ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.4rem;
 }
 
 .legal-back {
@@ -327,6 +423,10 @@
 
   .content-hub-grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-scoring-row {
+    grid-template-columns: minmax(5.5rem, 1.5fr) repeat(3, minmax(3.5rem, 1fr));
   }
 
   .site-footer-links {

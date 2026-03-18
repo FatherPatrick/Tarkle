@@ -125,8 +125,6 @@ function AmmoGamePage({
         </div>
       </section>
 
-      <AdSlot label="Advertisement" minHeight={120} slot="1000000003" />
-
       <GameResultModal
         isOpen={isResultModalOpen}
         onHome={handleHome}
