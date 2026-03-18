@@ -79,17 +79,24 @@
 }
 
 .site-footer-links {
-  display: flex;
-  gap: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
   position: fixed;
   left: 1rem;
   bottom: 1rem;
+  max-width: calc(100% - 2rem);
   z-index: 20;
   background: rgba(15, 23, 42, 0.8);
   border: 1px solid #334155;
-  border-radius: 999px;
+  border-radius: 0.85rem;
   padding: 0.35rem 0.65rem;
   backdrop-filter: blur(4px);
+}
+
+.site-footer-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .site-footer-links a {
