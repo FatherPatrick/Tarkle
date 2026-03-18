@@ -8,13 +8,6 @@ Status: In progress (created March 18, 2026)
 
 Use this checklist to track content work before submitting another AdSense review.
 
-### 3) Improve Trust and Site Legitimacy
-
-- [ ] Add an About page (site mission and maintainer context)
-- [ ] Add a Contact page (email or contact form)
-- [ ] Add an Editorial Policy page (update standards and correction workflow)
-- [ ] Add "Last updated" dates to all article/reference pages
-
 ### 4) SEO and Crawlability Essentials
 
 - [ ] Replace temporary site title/metadata in index.html

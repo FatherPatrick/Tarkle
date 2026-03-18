@@ -127,6 +127,30 @@ function HomePage() {
               Read Reference
             </a>
           </article>
+
+          <article className="content-hub-card">
+            <h3>About Tarkle</h3>
+            <p>Project mission, maintenance approach, and long-term direction.</p>
+            <a className="content-hub-link" href="/about">
+              Read About
+            </a>
+          </article>
+
+          <article className="content-hub-card">
+            <h3>Contact</h3>
+            <p>Report issues, send suggestions, and share corrections.</p>
+            <a className="content-hub-link" href="/contact">
+              Open Contact
+            </a>
+          </article>
+
+          <article className="content-hub-card">
+            <h3>Editorial Policy</h3>
+            <p>See update standards, correction workflow, and quality principles.</p>
+            <a className="content-hub-link" href="/editorial-policy">
+              Read Policy
+            </a>
+          </article>
         </div>
       </section>
 

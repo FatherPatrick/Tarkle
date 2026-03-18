@@ -12,6 +12,9 @@ import AmmoGlossaryPage from '../pages/AmmoGlossaryPage'
 import WeaponStatsGlossaryPage from '../pages/WeaponStatsGlossaryPage'
 import HowTarkleWorksPage from '../pages/HowTarkleWorksPage'
 import DataTransparencyPage from '../pages/DataTransparencyPage'
+import AboutPage from '../pages/AboutPage'
+import ContactPage from '../pages/ContactPage'
+import EditorialPolicyPage from '../pages/EditorialPolicyPage'
 import PrivacyPage from '../pages/PrivacyPage'
 import TermsPage from '../pages/TermsPage'
 import SiteBrand from './components/SiteBrand'
@@ -29,6 +32,9 @@ const GUIDE_TO_PATH = {
   'weapon-stats-glossary': '/reference/weapon-stats-glossary',
   'how-tarkle-works': '/reference/how-tarkle-works',
   'data-transparency': '/reference/data-transparency',
+  about: '/about',
+  contact: '/contact',
+  'editorial-policy': '/editorial-policy',
 }
 
 const PATH_TO_GUIDE = Object.entries(GUIDE_TO_PATH).reduce((acc, [guideKey, path]) => {
@@ -180,47 +186,59 @@ function AppShell() {
         />
       ) : null}
 
-      {view === 'privacy' ? <PrivacyPage onBackHome={handleBackHome} /> : null}
-      {view === 'terms' ? <TermsPage onBackHome={handleBackHome} /> : null}
+      {view === 'privacy' ? <PrivacyPage /> : null}
+      {view === 'terms' ? <TermsPage /> : null}
 
       {view === 'content' && guideKey === 'ammo-stats' ? (
-        <AmmoStatsGuidePage onBackHome={handleBackHome} />
+        <AmmoStatsGuidePage />
       ) : null}
 
       {view === 'content' && guideKey === 'weapon-family' ? (
-        <WeaponFamilyGuidePage onBackHome={handleBackHome} />
+        <WeaponFamilyGuidePage />
       ) : null}
 
       {view === 'content' && guideKey === 'beginner-progression' ? (
-        <BeginnerProgressionGuidePage onBackHome={handleBackHome} />
+        <BeginnerProgressionGuidePage />
       ) : null}
 
       {view === 'content' && guideKey === 'daily-strategy' ? (
-        <DailyStrategyGuidePage onBackHome={handleBackHome} />
+        <DailyStrategyGuidePage />
       ) : null}
 
       {view === 'content' && guideKey === 'patch-impact' ? (
-        <PatchImpactNotesPage onBackHome={handleBackHome} />
+        <PatchImpactNotesPage />
       ) : null}
 
       {view === 'content' && guideKey === 'faq' ? (
-        <FaqPage onBackHome={handleBackHome} />
+        <FaqPage />
       ) : null}
 
       {view === 'content' && guideKey === 'ammo-glossary' ? (
-        <AmmoGlossaryPage onBackHome={handleBackHome} />
+        <AmmoGlossaryPage />
       ) : null}
 
       {view === 'content' && guideKey === 'weapon-stats-glossary' ? (
-        <WeaponStatsGlossaryPage onBackHome={handleBackHome} />
+        <WeaponStatsGlossaryPage />
       ) : null}
 
       {view === 'content' && guideKey === 'how-tarkle-works' ? (
-        <HowTarkleWorksPage onBackHome={handleBackHome} />
+        <HowTarkleWorksPage />
       ) : null}
 
       {view === 'content' && guideKey === 'data-transparency' ? (
-        <DataTransparencyPage onBackHome={handleBackHome} />
+        <DataTransparencyPage />
+      ) : null}
+
+      {view === 'content' && guideKey === 'about' ? (
+        <AboutPage />
+      ) : null}
+
+      {view === 'content' && guideKey === 'contact' ? (
+        <ContactPage />
+      ) : null}
+
+      {view === 'content' && guideKey === 'editorial-policy' ? (
+        <EditorialPolicyPage />
       ) : null}
 
       <LegalLinks />
