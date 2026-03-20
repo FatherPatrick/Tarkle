@@ -1,6 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const RATE_LIMIT_BUCKETS = new Map()
 const DEFAULT_TO_EMAIL = 'patrickpark208@gmail.com'
 
@@ -87,66 +86,70 @@ function buildHtmlEmail({ name, email, category, pageUrl, message }) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST')
-    return res.status(405).json({ error: 'Method not allowed' })
-  }
-
-  const maxRequests = Number(process.env.CONTACT_RATE_LIMIT_MAX || DEFAULT_RATE_LIMIT_MAX)
-  const windowMs = Number(process.env.CONTACT_RATE_LIMIT_WINDOW_MS || DEFAULT_RATE_LIMIT_WINDOW_MS)
-  const clientIp = getClientIp(req)
-  const limiter = consumeRateLimit(`contact:${clientIp}`, maxRequests, windowMs)
-
-  if (!limiter.allowed) {
-    res.setHeader('Retry-After', String(limiter.retryAfterSeconds))
-    return res.status(429).json({ error: 'Too many requests, please try again later.' })
-  }
-
-  const toEmail = process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL
-  const fromEmail = process.env.CONTACT_FROM_EMAIL || 'Tarkle Contact <onboarding@resend.dev>'
-
-  if (!process.env.RESEND_API_KEY) {
-    return res.status(500).json({ error: 'Contact form is not configured' })
-  }
-
-  let payload = req.body
-  if (typeof req.body === 'string') {
-    try {
-      payload = JSON.parse(req.body)
-    } catch {
-      return res.status(400).json({ error: 'Invalid JSON payload' })
-    }
-  }
-
-  const name = toSingleLine(payload?.name)
-  const email = toSingleLine(payload?.email)
-  const category = toSingleLine(payload?.category || 'other')
-  const pageUrl = toSingleLine(payload?.pageUrl)
-  const message = String(payload?.message || '').trim()
-  const honeypot = toSingleLine(payload?.website)
-
-  if (honeypot) {
-    return res.status(200).json({ ok: true })
-  }
-
-  if (name.length < 2 || !email.includes('@') || message.length < 10) {
-    return res.status(400).json({ error: 'Invalid form payload' })
-  }
-
-  const subject = `[Tarkle Contact] ${category}`
-  const htmlBody = buildHtmlEmail({ name, email, category, pageUrl, message })
-  const textBody = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Topic: ${category}`,
-    `Page URL: ${pageUrl || 'N/A'}`,
-    '',
-    'Message:',
-    message,
-  ].join('\n')
-
   try {
-    await resend.emails.send({
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST')
+      return res.status(405).json({ error: 'Method not allowed' })
+    }
+
+    const maxRequests = Number(process.env.CONTACT_RATE_LIMIT_MAX || DEFAULT_RATE_LIMIT_MAX)
+    const windowMs = Number(process.env.CONTACT_RATE_LIMIT_WINDOW_MS || DEFAULT_RATE_LIMIT_WINDOW_MS)
+    const clientIp = getClientIp(req)
+    const limiter = consumeRateLimit(`contact:${clientIp}`, maxRequests, windowMs)
+
+    if (!limiter.allowed) {
+      res.setHeader('Retry-After', String(limiter.retryAfterSeconds))
+      return res.status(429).json({ error: 'Too many requests, please try again later.' })
+    }
+
+    const toEmail = process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL
+    const fromEmail = process.env.CONTACT_FROM_EMAIL || 'Tarkle Contact <onboarding@resend.dev>'
+    const apiKey = toSingleLine(process.env.RESEND_API_KEY)
+
+    if (!apiKey) {
+      return res.status(500).json({
+        error: 'Missing RESEND_API_KEY. For local vercel dev, add it to .env.local or run `npx vercel env pull .env.local`.',
+      })
+    }
+
+    let payload = req.body
+    if (typeof req.body === 'string') {
+      try {
+        payload = JSON.parse(req.body)
+      } catch {
+        return res.status(400).json({ error: 'Invalid JSON payload' })
+      }
+    }
+
+    const name = toSingleLine(payload?.name)
+    const email = toSingleLine(payload?.email)
+    const category = toSingleLine(payload?.category || 'other')
+    const pageUrl = toSingleLine(payload?.pageUrl)
+    const message = String(payload?.message || '').trim()
+    const honeypot = toSingleLine(payload?.website)
+
+    if (honeypot) {
+      return res.status(200).json({ ok: true })
+    }
+
+    if (name.length < 2 || !email.includes('@') || message.length < 10) {
+      return res.status(400).json({ error: 'Invalid form payload' })
+    }
+
+    const subject = `[Tarkle Contact] ${category}`
+    const htmlBody = buildHtmlEmail({ name, email, category, pageUrl, message })
+    const textBody = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Topic: ${category}`,
+      `Page URL: ${pageUrl || 'N/A'}`,
+      '',
+      'Message:',
+      message,
+    ].join('\n')
+
+    const resend = new Resend(apiKey)
+    const sendResult = await resend.emails.send({
       from: fromEmail,
       to: toEmail,
       replyTo: email,
@@ -155,8 +158,14 @@ export default async function handler(req, res) {
       text: textBody,
     })
 
+    if (sendResult?.error) {
+      console.error('Resend send error', sendResult.error)
+      return res.status(502).json({ error: 'Email provider rejected the message' })
+    }
+
     return res.status(200).json({ ok: true })
-  } catch {
-    return res.status(502).json({ error: 'Email send failed' })
+  } catch (error) {
+    console.error('Unhandled contact API error', error)
+    return res.status(500).json({ error: 'Contact request failed unexpectedly' })
   }
 }

@@ -14,6 +14,30 @@ npm install
 npm run dev
 ```
 
+To test API routes like /api/contact locally, run:
+
+```bash
+npm run dev:vercel
+```
+
+This uses a small Node wrapper that loads `.env.local` first and then starts `vercel dev --local`, so local testing prefers your local secrets instead of the linked Vercel project's dashboard env vars.
+
+If you want to test against the linked Vercel project env/config instead, run:
+
+```bash
+npm run dev:vercel:linked
+```
+
+The Vite dev server alone does not run Vercel serverless functions, so /api/contact returns 404 when using only npm run dev.
+
+For local API testing, pull the project env vars into a local env file once:
+
+```bash
+npx vercel env pull .env.local
+```
+
+At minimum, your local `.env.local` needs `RESEND_API_KEY` for `/api/contact` to work.
+
 ## Contact Form Email Delivery
 
 The Contact page submits to `/api/contact`, a Vercel Serverless Function that sends email using Resend.
