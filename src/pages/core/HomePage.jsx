@@ -1,4 +1,4 @@
-import AdSlot from '../features/ads/AdSlot'
+import AdSlot from '../../features/ads/AdSlot'
 
 function HomePage() {
   return (

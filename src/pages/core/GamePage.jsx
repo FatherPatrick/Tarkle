@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import AdSlot from '../features/ads/AdSlot'
-import ConfirmLeaveModal from '../app/components/ConfirmLeaveModal'
-import GameHeader from '../features/tarkle/components/GameHeader'
-import GameResultModal from '../features/tarkle/components/GameResultModal'
-import WeaponGuessBoard from '../features/tarkle/components/WeaponGuessBoard'
-import WeaponSearchSelect from '../features/tarkle/components/WeaponSearchSelect'
-import { useTarkleGame } from '../features/tarkle/hooks/useTarkleGame'
-import '../features/tarkle/Tarkle.css'
+import AdSlot from '../../features/ads/AdSlot'
+import ConfirmLeaveModal from '../../app/components/ConfirmLeaveModal'
+import GameHeader from '../../features/tarkle/components/GameHeader'
+import GameResultModal from '../../features/tarkle/components/GameResultModal'
+import WeaponGuessBoard from '../../features/tarkle/components/WeaponGuessBoard'
+import WeaponSearchSelect from '../../features/tarkle/components/WeaponSearchSelect'
+import { useTarkleGame } from '../../features/tarkle/hooks/useTarkleGame'
+import '../../features/tarkle/Tarkle.css'
 
 function GamePage({
   mode,
