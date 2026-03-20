@@ -14,6 +14,24 @@ npm install
 npm run dev
 ```
 
+## Contact Form Email Delivery
+
+The Contact page submits to `/api/contact`, a Vercel Serverless Function that sends email using Resend.
+
+Required environment variables:
+
+- `RESEND_API_KEY`
+
+Optional:
+
+- `CONTACT_TO_EMAIL`
+- `CONTACT_FROM_EMAIL` (defaults to `Tarkle Contact <onboarding@resend.dev>`)
+- `VITE_CONTACT_FORM_ENDPOINT` (defaults to `/api/contact`)
+- `CONTACT_RATE_LIMIT_MAX` (defaults to `3`)
+- `CONTACT_RATE_LIMIT_WINDOW_MS` (defaults to `900000` = 15 minutes)
+
+The contact endpoint also sends a branded HTML email plus plain text fallback to make incoming messages easier to spot.
+
 ## Current infrastructure
 
 - App shell and page layer:
