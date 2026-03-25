@@ -1,4 +1,5 @@
 import woods3dImage from '../../assets/woods-3d.jpg'
+import TarkovTimeBadge from './components/TarkovTimeBadge'
 
 const WOODS_POINTS = [
   { id: 'woods-1', label: 'Scav bunker', left: '41.7%', top: '15.9%' },
@@ -23,6 +24,8 @@ function WoodsBtrTrackerPage() {
 
       <div className="btr-tracker-stage">
         <div className="btr-map-wrap">
+          <TarkovTimeBadge />
+
           <img
             className="btr-tracker-image"
             src={woods3dImage}

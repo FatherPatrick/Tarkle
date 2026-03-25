@@ -69,6 +69,44 @@
   margin: 0;
 }
 
+.tarkov-time-badge {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  border: 1px solid #334155;
+  border-radius: 0.6rem;
+  background: rgba(15, 23, 42, 0.94);
+  padding: 0.35rem 0.55rem;
+  min-width: 8.8rem;
+  text-align: right;
+  z-index: 10;
+}
+
+.tarkov-time-label,
+.tarkov-time-value,
+.tarkov-time-subvalue {
+  margin: 0;
+}
+
+.tarkov-time-label {
+  color: #94a3b8;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tarkov-time-value {
+  color: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.tarkov-time-subvalue {
+  color: #cbd5e1;
+  font-size: 0.72rem;
+}
+
 .btr-tracker-stage {
   height: calc(100vh - 13.5rem);
   min-height: 24rem;

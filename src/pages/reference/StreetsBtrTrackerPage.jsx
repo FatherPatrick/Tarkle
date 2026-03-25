@@ -1,4 +1,5 @@
 import streets3dImage from '../../assets/streets-3d.jpg'
+import TarkovTimeBadge from './components/TarkovTimeBadge'
 
 const STREETS_POINTS = [
   { id: 'streets-1', label: 'Collapsed Crane', left: '49.8%', top: '62.8%' },
@@ -21,6 +22,8 @@ function StreetsBtrTrackerPage() {
 
       <div className="btr-tracker-stage">
         <div className="btr-map-wrap">
+          <TarkovTimeBadge />
+
           <img
             className="btr-tracker-image"
             src={streets3dImage}
