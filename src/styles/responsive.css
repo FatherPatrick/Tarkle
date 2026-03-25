@@ -13,10 +13,6 @@
     font-size: clamp(2.5rem, 10vw, 3.6rem);
   }
 
-  .home-mode-grid {
-    grid-template-columns: 1fr;
-  }
-
   .content-hub-grid {
     grid-template-columns: 1fr;
   }
@@ -28,5 +24,15 @@
   .site-footer-links {
     left: 0.75rem;
     bottom: 0.75rem;
+  }
+
+  .btr-tracker-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .btr-tracker-stage {
+    height: calc(100vh - 11.75rem);
+    min-height: 20rem;
   }
 }

@@ -17,7 +17,9 @@ const TermsPage = lazy(() => import('../pages/legal/TermsPage'))
 const AmmoGlossaryPage = lazy(() => import('../pages/reference/AmmoGlossaryPage'))
 const DataTransparencyPage = lazy(() => import('../pages/reference/DataTransparencyPage'))
 const HowTarkleWorksPage = lazy(() => import('../pages/reference/HowTarkleWorksPage'))
+const StreetsBtrTrackerPage = lazy(() => import('../pages/reference/StreetsBtrTrackerPage'))
 const WeaponStatsGlossaryPage = lazy(() => import('../pages/reference/WeaponStatsGlossaryPage'))
+const WoodsBtrTrackerPage = lazy(() => import('../pages/reference/WoodsBtrTrackerPage'))
 
 const SITE_ORIGIN = 'https://tarkovle.vercel.app'
 const VALID_VIEWS = new Set(['home', 'game', 'static'])
@@ -131,6 +133,20 @@ const ROUTE_CONFIG = {
     description:
       'See Tarkle rules, scoring interpretation, and practical examples for weapon and ammo rounds.',
   },
+  '/reference/streets-btr-tracker': {
+    view: 'static',
+    component: StreetsBtrTrackerPage,
+    title: 'Streets of Tarkov BTR Tracker',
+    description:
+      'Track Streets of Tarkov BTR routes with a dedicated map surface for route overlays and tooltip annotations.',
+  },
+  '/reference/woods-btr-tracker': {
+    view: 'static',
+    component: WoodsBtrTrackerPage,
+    title: 'Woods BTR Tracker',
+    description:
+      'Track Woods BTR routes with a dedicated map surface for route overlays and tooltip annotations.',
+  },
   '/reference/data-transparency': {
     view: 'static',
     component: DataTransparencyPage,
@@ -187,6 +203,8 @@ const PREFETCH_IMPORTERS = {
   '/reference/ammo-glossary': () => import('../pages/reference/AmmoGlossaryPage'),
   '/reference/weapon-stats-glossary': () => import('../pages/reference/WeaponStatsGlossaryPage'),
   '/reference/how-tarkle-works': () => import('../pages/reference/HowTarkleWorksPage'),
+  '/reference/streets-btr-tracker': () => import('../pages/reference/StreetsBtrTrackerPage'),
+  '/reference/woods-btr-tracker': () => import('../pages/reference/WoodsBtrTrackerPage'),
   '/reference/data-transparency': () => import('../pages/reference/DataTransparencyPage'),
   '/editorial-policy': () => import('../pages/legal/EditorialPolicyPage'),
   '/privacy': () => import('../pages/legal/PrivacyPage'),
@@ -250,7 +268,12 @@ function prefetchPath(path) {
 function getLikelyNextPaths(pathname) {
   switch (pathname) {
     case '/':
-      return ['/guides/ammo-stats', '/guides/weapon-family', '/contact', '/about']
+      return [
+        '/guides/ammo-stats',
+        '/guides/weapon-family',
+        '/reference/streets-btr-tracker',
+        '/reference/woods-btr-tracker',
+      ]
     case '/weapon/daily':
     case '/weapon/unlimited':
       return ['/guides/weapon-family', '/guides/daily-strategy', '/reference/weapon-stats-glossary']

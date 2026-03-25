@@ -20,39 +20,71 @@ function HomePage() {
 
       <AdSlot label="Sponsored" minHeight={130} slot="1000000001" />
 
-      <div className="home-mode-grid">
-        <article className="home-mode-card">
-          <h2>Tarkle Of The Day</h2>
-          <p>One fixed daily weapon. You get one game run per day.</p>
-          <a className="home-mode-button" href="/weapon/daily">
-            Play Daily
-          </a>
-        </article>
+      <section className="content-hub" aria-label="Guessing games">
+        <h2>Guessing Games</h2>
+        <p className="content-hub-subtitle">
+          Pick a mode and sharpen your Tarkov stat intuition in daily or unlimited rounds.
+        </p>
 
-        <article className="home-mode-card">
-          <h2>Unlimited</h2>
-          <p>Unlimited fresh games with a new random weapon each round.</p>
-          <a className="home-mode-button" href="/weapon/unlimited">
-            Play Unlimited
-          </a>
-        </article>
+        <div className="content-hub-grid">
+          <article className="content-hub-card">
+            <h3>Tarkle Of The Day</h3>
+            <p>One fixed daily weapon. You get one game run per day.</p>
+            <a className="content-hub-link" href="/weapon/daily">
+              Play Daily
+            </a>
+          </article>
 
-        <article className="home-mode-card">
-          <h2>Ammo Of The Day</h2>
-          <p>One fixed daily ammo round. One run per day.</p>
-          <a className="home-mode-button" href="/ammo/daily">
-            Play Ammo Daily
-          </a>
-        </article>
+          <article className="content-hub-card">
+            <h3>Unlimited</h3>
+            <p>Unlimited fresh games with a new random weapon each round.</p>
+            <a className="content-hub-link" href="/weapon/unlimited">
+              Play Unlimited
+            </a>
+          </article>
 
-        <article className="home-mode-card">
-          <h2>Ammo Unlimited</h2>
-          <p>See a mystery round image and guess ammo with unlimited rounds.</p>
-          <a className="home-mode-button" href="/ammo/unlimited">
-            Play Ammo Unlimited
-          </a>
-        </article>
-      </div>
+          <article className="content-hub-card">
+            <h3>Ammo Of The Day</h3>
+            <p>One fixed daily ammo round. One run per day.</p>
+            <a className="content-hub-link" href="/ammo/daily">
+              Play Ammo Daily
+            </a>
+          </article>
+
+          <article className="content-hub-card">
+            <h3>Ammo Unlimited</h3>
+            <p>See a mystery round image and guess ammo with unlimited rounds.</p>
+            <a className="content-hub-link" href="/ammo/unlimited">
+              Play Ammo Unlimited
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="content-hub" aria-label="BTR routes">
+        <h2>BTR Routes</h2>
+        <p className="content-hub-subtitle">
+          Learn map-by-map BTR movement patterns to predict timing, lane pressure, and safer rotations.
+        </p>
+
+        <div className="content-hub-grid">
+          <article className="content-hub-card btr-route-card">
+            <h3>Streets of Tarkov</h3>
+            <p>Interactive BTR route references for Streets are in progress and will be published here soon.</p>
+            <a className="content-hub-link" href="/reference/streets-btr-tracker">
+              Open Tracker
+            </a>
+          </article>
+
+          <article className="content-hub-card btr-route-card">
+            <h3>Woods</h3>
+            <p>Interactive BTR route references for Woods are in progress and will be published here soon.</p>
+            <a className="content-hub-link" href="/reference/woods-btr-tracker">
+              Open Tracker
+            </a>
+          </article>
+        </div>
+      </section>
 
       <section className="content-hub" aria-label="Guides and articles">
         <h2>Guides and Articles</h2>
