@@ -14,6 +14,9 @@ function HomePage() {
           The goal is to turn raw stats into practical intuition. Instead of memorizing isolated
           numbers, each guess helps you learn patterns you can reuse in future rounds.
         </p>
+        <a className="content-hub-link" href="/reference/how-tarkle-works">
+          How Tarkle Works
+        </a>
       </section>
 
       <section className="content-hub" aria-label="Guessing games">
@@ -200,14 +203,6 @@ function HomePage() {
             <p>Quick definitions for recoil, ergonomics, and stat relationships.</p>
             <a className="content-hub-link" href="/reference/weapon-stats-glossary">
               Open Glossary
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>How Tarkle Works</h3>
-            <p>Rules, scoring interpretation, and examples for weapon and ammo rounds.</p>
-            <a className="content-hub-link" href="/reference/how-tarkle-works">
-              Read Reference
             </a>
           </article>
 

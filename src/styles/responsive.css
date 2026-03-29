@@ -7,10 +7,30 @@
     padding-top: 4.1rem;
   }
 
+  .app-shell-sidebar {
+    top: 6.15rem;
+    bottom: 5rem;
+    left: 0.75rem;
+    width: min(15rem, calc(100vw - 1.5rem));
+  }
+
+  .app-shell-sidebar--btr {
+    top: 7.35rem;
+  }
+
   .site-brand {
     top: 0.7rem;
     left: 0.75rem;
     font-size: clamp(2.5rem, 10vw, 3.6rem);
+  }
+
+  .site-nav-toggle {
+    top: 5rem;
+    left: 0.75rem;
+  }
+
+  .site-nav-toggle--btr {
+    top: 7.35rem;
   }
 
   .content-hub-grid {
@@ -21,7 +41,7 @@
     grid-template-columns: minmax(5.5rem, 1.5fr) repeat(3, minmax(3.5rem, 1fr));
   }
 
-  .site-footer-links {
+  .site-footer-links--floating {
     left: 0.75rem;
     bottom: 0.75rem;
   }

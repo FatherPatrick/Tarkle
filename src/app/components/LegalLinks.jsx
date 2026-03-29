@@ -1,24 +1,36 @@
-function LegalLinks() {
+const LINKS = [
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/editorial-policy', label: 'Editorial Policy' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+]
+
+function LegalLinks({ onNavigate, variant = 'floating' }) {
+  const handleClick = (event, href) => {
+    if (!onNavigate) {
+      return
+    }
+
+    event.preventDefault()
+    onNavigate(href)
+  }
+
   return (
-    <footer className="site-footer-links" aria-label="Site policy and trust links">
+    <footer className={`site-footer-links site-footer-links--${variant}`} aria-label="Site policy and trust links">
       <div className="site-footer-links-row">
-        <a href="/about">
-          About
-        </a>
-        <a href="/contact">
-          Contact
-        </a>
-        <a href="/editorial-policy">
-          Editorial Policy
-        </a>
+        {LINKS.slice(0, 3).map((link) => (
+          <a key={link.href} href={link.href} onClick={(event) => handleClick(event, link.href)}>
+            {link.label}
+          </a>
+        ))}
       </div>
       <div className="site-footer-links-row">
-        <a href="/privacy">
-          Privacy
-        </a>
-        <a href="/terms">
-          Terms
-        </a>
+        {LINKS.slice(3).map((link) => (
+          <a key={link.href} href={link.href} onClick={(event) => handleClick(event, link.href)}>
+            {link.label}
+          </a>
+        ))}
       </div>
     </footer>
   )
