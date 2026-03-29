@@ -33,6 +33,98 @@
   font-size: 0.93rem;
 }
 
+.home-readme-status {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.home-readme-status--error {
+  color: #fecaca;
+}
+
+.home-readme-block {
+  margin: 0;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  background: #0b1220;
+  color: #dbeafe;
+  padding: 0.85rem;
+  max-height: 26rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.home-readme-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.home-readme-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.home-readme-markdown h1,
+.home-readme-markdown h2,
+.home-readme-markdown h3,
+.home-readme-markdown h4,
+.home-readme-markdown h5,
+.home-readme-markdown h6 {
+  color: #f8fafc;
+  margin: 0.9rem 0 0.5rem;
+}
+
+.home-readme-markdown p,
+.home-readme-markdown ul,
+.home-readme-markdown ol,
+.home-readme-markdown pre,
+.home-readme-markdown blockquote {
+  margin: 0.55rem 0;
+}
+
+.home-readme-markdown ul,
+.home-readme-markdown ol {
+  padding-left: 1.2rem;
+}
+
+.home-readme-markdown li {
+  margin: 0.2rem 0;
+}
+
+.home-readme-markdown a {
+  color: #93c5fd;
+}
+
+.home-readme-markdown code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.84em;
+  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid #334155;
+  border-radius: 0.35rem;
+  padding: 0.08rem 0.3rem;
+}
+
+.home-readme-markdown pre {
+  overflow: auto;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  padding: 0.65rem;
+}
+
+.home-readme-markdown pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.home-readme-markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
 .home-guessing-details {
   display: grid;
   gap: 1rem;

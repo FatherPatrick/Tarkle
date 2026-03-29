@@ -1,4 +1,68 @@
+import { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+const README_URL = 'https://raw.githubusercontent.com/FatherPatrick/Tarkle/main/README.md'
+const REPO_URL = 'https://github.com/FatherPatrick/Tarkle'
+
+function resolveReadmeLink(href = '') {
+  if (!href) {
+    return REPO_URL
+  }
+
+  if (href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:')) {
+    return href
+  }
+
+  if (href.startsWith('#')) {
+    return `${REPO_URL}#readme`
+  }
+
+  if (href.startsWith('/')) {
+    return `${REPO_URL}/blob/main${href}`
+  }
+
+  return `${REPO_URL}/blob/main/${href}`
+}
+
 function HomePage() {
+  const [readmeText, setReadmeText] = useState('')
+  const [readmeStatus, setReadmeStatus] = useState('loading')
+
+  useEffect(() => {
+    let isActive = true
+
+    async function loadReadme() {
+      try {
+        const response = await fetch(README_URL, { cache: 'no-store' })
+
+        if (!response.ok) {
+          throw new Error('readme-fetch-failed')
+        }
+
+        const text = await response.text()
+        if (!isActive) {
+          return
+        }
+
+        setReadmeText(text.trim())
+        setReadmeStatus('ready')
+      } catch {
+        if (!isActive) {
+          return
+        }
+
+        setReadmeStatus('error')
+      }
+    }
+
+    loadReadme()
+
+    return () => {
+      isActive = false
+    }
+  }, [])
+
   return (
     <section className="home-landing">
       <p className="home-subtitle">Choose your mode and guess the Tarkov weapon or ammo.</p>
@@ -135,19 +199,42 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="home-info-block" aria-label="Recent updates">
-        <h2>Recent Updates</h2>
+      <section className="home-info-block" aria-label="Repository README">
+        <h2>Project README</h2>
         <p className="home-update-rhythm">
-          Update cadence: weekly content and quality updates, with major gameplay/data updates as needed.
+          Live source: GitHub repository documentation.
         </p>
-        <ul>
-          <li>2026-03-29: Added a collapsible left-side navigation drawer with grouped links.</li>
-          <li>2026-03-29: Updated BTR page nav positioning so sidebar and hamburger sit lower on tracker routes.</li>
-          <li>2026-03-29: Kept About, Contact, Privacy, and Terms links always visible outside the collapsible drawer.</li>
-          <li>2026-03-29: Moved How Tarkle Works into the What Is Tarkle intro and removed Guides and Articles from home.</li>
-          <li>2026-03-29: Removed active ad placements while improving privacy and ad disclosure language.</li>
-          <li>2026-03-29: Updated BTR route hub copy now that both map trackers are live.</li>
-        </ul>
+
+        {readmeStatus === 'loading' ? (
+          <p className="home-readme-status">Loading README from GitHub...</p>
+        ) : null}
+
+        {readmeStatus === 'error' ? (
+          <p className="home-readme-status home-readme-status--error">
+            Could not load the README right now. Use the button below to open it on GitHub.
+          </p>
+        ) : null}
+
+        {readmeStatus === 'ready' ? (
+          <div className="home-readme-block home-readme-markdown" aria-label="Repository README content">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                a: ({ href, children, ...props }) => (
+                  <a href={resolveReadmeLink(href)} target="_blank" rel="noreferrer" {...props}>
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {readmeText}
+            </ReactMarkdown>
+          </div>
+        ) : null}
+
+        <a className="content-hub-link" href={REPO_URL} target="_blank" rel="noreferrer">
+          Open On GitHub
+        </a>
       </section>
 
     </section>
