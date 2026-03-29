@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import AdSlot from '../../features/ads/AdSlot'
 import ConfirmLeaveModal from '../../app/components/ConfirmLeaveModal'
 import AmmoGuessBoard from '../../features/tarkle/components/AmmoGuessBoard'
 import AmmoSearchSelect from '../../features/tarkle/components/AmmoSearchSelect'
@@ -77,8 +76,6 @@ function AmmoGamePage({
 
   return (
     <section className="tarkle">
-      <AdSlot label="Advertisement" minHeight={120} slot="1000000002" />
-
       <GameHeader
         message={message}
         onBackHome={onBackHome}

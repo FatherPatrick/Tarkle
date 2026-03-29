@@ -2,11 +2,12 @@ function PrivacyPage() {
   return (
     <section className="legal-page">
       <h1>Privacy Policy</h1>
-      <p className="content-updated">Last updated: March 18, 2026</p>
+      <p className="content-updated">Last updated: March 29, 2026</p>
       <p>
         This page explains how Tarkle handles information when you use the website. Tarkle is designed
         as a lightweight game and reference site, and we aim to keep data handling limited to what is
-        useful for gameplay continuity, content quality, and service reliability.
+        necessary for gameplay continuity, feedback handling, service reliability, and clear user
+        disclosures.
       </p>
 
       <h2>Data We May Process</h2>
@@ -26,28 +27,40 @@ function PrivacyPage() {
 
       <h2>Cookies and Similar Technologies</h2>
       <p>
-        Tarkle and integrated services may use cookies or similar technologies for core site behavior,
-        measurement, and ad delivery. Cookie behavior may vary based on your browser settings and
-        region-specific consent requirements.
+        Tarkle may use browser storage, cookies, or similar technologies for core site behavior,
+        abuse prevention, and measurement. Some features may stop working as expected if you block
+        storage or cookies at the browser level. Cookie behavior can also vary based on browser
+        settings and region-specific consent requirements.
       </p>
 
-      <h2>Advertising and Ad Data Notes</h2>
+      <h2>Current Advertising Status</h2>
       <p>
-        If advertising is enabled, third-party ad partners may collect or receive data from your
-        device and browsing activity to serve, personalize, and measure ads. These providers may use
-        identifiers, cookie data, interaction metrics, and anti-fraud signals under their own privacy
-        policies.
+        Tarkle does not currently serve Google AdSense or other third-party display ads on site pages.
+        If that changes, this policy will be updated before or when those placements are enabled.
+      </p>
+
+      <h2>If Google AdSense Is Enabled Later</h2>
+      <p>
+        If Google AdSense is enabled in the future, Google and its partners may use cookies, web
+        beacons, IP address data, and similar identifiers to serve, measure, and in some regions
+        personalize ads. That can include information about browser activity on this site and on other
+        sites.
       </p>
       <p>
-        Tarkle does not control every downstream data practice of third-party ad platforms. For details
-        on ad personalization, opt-out tools, and data rights, review your ad provider policy and local
-        privacy controls.
+        Google explains these practices at https://policies.google.com/technologies/partner-sites.
+        When ads are active, users can also review Google ad settings and local browser controls to
+        manage personalization and cookie behavior.
+      </p>
+      <p>
+        Tarkle does not control every downstream data practice of third-party advertising providers.
+        Any third-party provider used later would process data under its own terms and privacy policy.
       </p>
 
       <h2>Analytics and Diagnostics</h2>
       <p>
-        Site analytics may be used to understand traffic patterns, page performance, and feature usage.
-        These signals help prioritize content updates and detect usability issues.
+        Site analytics, server logs, and operational diagnostics may be used to understand traffic
+        patterns, page performance, form abuse, and feature usage. These signals help prioritize
+        content updates and detect reliability or usability issues.
       </p>
 
       <h2>Children's Privacy</h2>
@@ -60,21 +73,22 @@ function PrivacyPage() {
       <h2>Data Retention</h2>
       <p>
         Retention periods depend on data type and purpose. Local storage persists until removed by the
-        user. Service-level logs and analytics data are retained for operational, security, or quality
-        improvement purposes for reasonable periods.
+        user. Contact submissions, service-level logs, and analytics data are retained only as long as
+        needed for operational, security, moderation, or quality-improvement purposes.
       </p>
 
       <h2>Your Choices</h2>
       <ul>
         <li>Clear browser local storage to reset saved gameplay state.</li>
         <li>Use browser settings to block or limit cookies.</li>
-        <li>Use provider opt-out settings where available for ad personalization.</li>
+        <li>Use provider opt-out settings where available if third-party ads are enabled later.</li>
         <li>Contact us for privacy-related questions or correction requests.</li>
       </ul>
 
       <h2>Contact</h2>
       <p>
-        Privacy questions can be sent to the contact address listed on the Contact page.
+        Privacy questions, correction requests, or disclosure questions can be sent to the contact
+        address listed on the Contact page.
       </p>
 
       <h2>Policy Changes</h2>

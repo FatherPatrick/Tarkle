@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import AdSlot from '../../features/ads/AdSlot'
 import ConfirmLeaveModal from '../../app/components/ConfirmLeaveModal'
 import GameHeader from '../../features/tarkle/components/GameHeader'
 import GameResultModal from '../../features/tarkle/components/GameResultModal'
@@ -76,8 +75,6 @@ function GamePage({
 
   return (
     <section className="tarkle">
-      <AdSlot label="Advertisement" minHeight={120} slot="1000000002" />
-
       <GameHeader
         message={message}
         onBackHome={onBackHome}

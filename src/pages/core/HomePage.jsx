@@ -1,5 +1,3 @@
-import AdSlot from '../../features/ads/AdSlot'
-
 function HomePage() {
   return (
     <section className="home-landing">
@@ -17,8 +15,6 @@ function HomePage() {
           numbers, each guess helps you learn patterns you can reuse in future rounds.
         </p>
       </section>
-
-      <AdSlot label="Sponsored" minHeight={130} slot="1000000001" />
 
       <section className="content-hub" aria-label="Guessing games">
         <h2>Guessing Games</h2>
@@ -59,6 +55,56 @@ function HomePage() {
             </a>
           </article>
         </div>
+        <div className="home-guessing-details">
+          <section className="home-info-block" aria-label="How to play">
+            <h2>How To Play</h2>
+            <ol>
+              <li>Pick a mode: weapon daily, weapon unlimited, ammo daily, or ammo unlimited.</li>
+              <li>Submit your first guess as an information probe, not a random guess.</li>
+              <li>Use mismatch feedback to narrow your next candidate quickly.</li>
+              <li>Prioritize fixing the largest mismatch category each attempt.</li>
+              <li>Use unlimited mode to practice and then apply the process in daily mode.</li>
+            </ol>
+          </section>
+
+          <section className="home-info-block" aria-label="Scoring example">
+            <h2>Scoring Example</h2>
+            <p>
+              Example ammo round with three filled guesses. Green means correct, amber means close,
+              and red means wrong.
+            </p>
+
+            <div className="home-scoring-example" role="img" aria-label="Example filled ammo guesses with feedback colors">
+              <div className="home-scoring-row home-scoring-row--head">
+                <span>Guess</span>
+                <span>Caliber</span>
+                <span>Damage</span>
+                <span>Pen</span>
+              </div>
+
+              <div className="home-scoring-row">
+                <span className="home-score-cell home-score-cell--name">PP gs</span>
+                <span className="home-score-cell home-score-cell--correct">9x19</span>
+                <span className="home-score-cell home-score-cell--wrong">58</span>
+                <span className="home-score-cell home-score-cell--wrong">20</span>
+              </div>
+
+              <div className="home-scoring-row">
+                <span className="home-score-cell home-score-cell--name">PBP gzh</span>
+                <span className="home-score-cell home-score-cell--correct">9x19</span>
+                <span className="home-score-cell home-score-cell--close">52</span>
+                <span className="home-score-cell home-score-cell--close">39</span>
+              </div>
+
+              <div className="home-scoring-row">
+                <span className="home-score-cell home-score-cell--name">AP 6.3</span>
+                <span className="home-score-cell home-score-cell--correct">9x19</span>
+                <span className="home-score-cell home-score-cell--correct">52</span>
+                <span className="home-score-cell home-score-cell--correct">30</span>
+              </div>
+            </div>
+          </section>
+        </div>
       </section>
 
       <section className="content-hub" aria-label="BTR routes">
@@ -70,7 +116,7 @@ function HomePage() {
         <div className="content-hub-grid">
           <article className="content-hub-card btr-route-card">
             <h3>Streets of Tarkov</h3>
-            <p>Interactive BTR route references for Streets are in progress and will be published here soon.</p>
+            <p>Open the live Streets tracker to review route stops, timing landmarks, and safer rotation reads.</p>
             <a className="content-hub-link" href="/reference/streets-btr-tracker">
               Open Tracker
             </a>
@@ -78,7 +124,7 @@ function HomePage() {
 
           <article className="content-hub-card btr-route-card">
             <h3>Woods</h3>
-            <p>Interactive BTR route references for Woods are in progress and will be published here soon.</p>
+            <p>Open the live Woods tracker to follow route stops, transit pressure, and map-side travel patterns.</p>
             <a className="content-hub-link" href="/reference/woods-btr-tracker">
               Open Tracker
             </a>
@@ -176,66 +222,18 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="home-info-block" aria-label="How to play">
-        <h2>How To Play</h2>
-        <ol>
-          <li>Pick a mode: weapon daily, weapon unlimited, ammo daily, or ammo unlimited.</li>
-          <li>Submit your first guess as an information probe, not a random guess.</li>
-          <li>Use mismatch feedback to narrow your next candidate quickly.</li>
-          <li>Prioritize fixing the largest mismatch category each attempt.</li>
-          <li>Use unlimited mode to practice and then apply the process in daily mode.</li>
-        </ol>
-      </section>
-
-      <section className="home-info-block" aria-label="Scoring example">
-        <h2>Scoring Example</h2>
-        <p>
-          Example ammo round with three filled guesses. Green means correct, amber means close,
-          and red means wrong.
-        </p>
-
-        <div className="home-scoring-example" role="img" aria-label="Example filled ammo guesses with feedback colors">
-          <div className="home-scoring-row home-scoring-row--head">
-            <span>Guess</span>
-            <span>Caliber</span>
-            <span>Damage</span>
-            <span>Pen</span>
-          </div>
-
-          <div className="home-scoring-row">
-            <span className="home-score-cell home-score-cell--name">PP gs</span>
-            <span className="home-score-cell home-score-cell--correct">9x19</span>
-            <span className="home-score-cell home-score-cell--wrong">58</span>
-            <span className="home-score-cell home-score-cell--wrong">20</span>
-          </div>
-
-          <div className="home-scoring-row">
-            <span className="home-score-cell home-score-cell--name">PBP gzh</span>
-            <span className="home-score-cell home-score-cell--correct">9x19</span>
-            <span className="home-score-cell home-score-cell--close">52</span>
-            <span className="home-score-cell home-score-cell--close">39</span>
-          </div>
-
-          <div className="home-scoring-row">
-            <span className="home-score-cell home-score-cell--name">AP 6.3</span>
-            <span className="home-score-cell home-score-cell--correct">9x19</span>
-            <span className="home-score-cell home-score-cell--correct">52</span>
-            <span className="home-score-cell home-score-cell--correct">30</span>
-          </div>
-        </div>
-      </section>
-
       <section className="home-info-block" aria-label="Recent updates">
         <h2>Recent Updates</h2>
         <p className="home-update-rhythm">
           Update cadence: weekly content and quality updates, with major gameplay/data updates as needed.
         </p>
         <ul>
-          <li>2026-03-18: Expanded Privacy and Terms with detailed policy language and ad-data notes.</li>
+          <li>2026-03-29: Removed active ad placements while improving privacy and disclosure language.</li>
+          <li>2026-03-29: Updated the BTR tracker hub copy now that both map trackers are live.</li>
+          <li>2026-03-18: Expanded Privacy and Terms with detailed policy language and data-handling notes.</li>
           <li>2026-03-18: Added scoring example board and expanded homepage learning sections.</li>
           <li>2026-03-18: Added trust pages and moved trust/legal navigation into shared footer links.</li>
           <li>2026-03-18: Added route-level metadata, canonical tags, sitemap, and robots support.</li>
-          <li>2026-03-18: Reduced in-game ad density to keep play views content-forward.</li>
         </ul>
       </section>
 

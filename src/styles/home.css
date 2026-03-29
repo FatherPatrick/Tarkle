@@ -33,6 +33,13 @@
   font-size: 0.93rem;
 }
 
+.home-guessing-details {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  margin-top: 1rem;
+}
+
 .home-info-block ul,
 .home-info-block ol {
   margin: 0;

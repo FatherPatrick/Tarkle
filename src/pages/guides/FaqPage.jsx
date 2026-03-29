@@ -65,10 +65,11 @@ function FaqPage() {
         lost when you refresh. This behavior is explained in the privacy information.
       </p>
 
-      <h2>10) Why are there ads on the site?</h2>
+      <h2>10) Are display ads currently enabled?</h2>
       <p>
-        Ads help support hosting, maintenance, and ongoing content updates. The goal is to keep ads
-        moderate while prioritizing readable, useful gameplay content.
+        No. Display ads are currently disabled while the site content and disclosure pages are being
+        improved. If ads are reintroduced later, the Privacy Policy will describe the provider,
+        cookie usage, and relevant user choices.
       </p>
 
       <h2>11) How can I improve daily streak consistency?</h2>
