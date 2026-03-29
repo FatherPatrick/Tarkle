@@ -135,100 +135,18 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="content-hub" aria-label="Guides and articles">
-        <h2>Guides and Articles</h2>
-        <p className="content-hub-subtitle">
-          Learn ammo logic, weapon families, daily strategy, and patch impact notes.
-        </p>
-
-        <div className="content-hub-grid">
-          <article className="content-hub-card">
-            <h3>Ammo Stats Guide</h3>
-            <p>Understand penetration, damage, armor pressure, and fragmentation tradeoffs.</p>
-            <a className="content-hub-link" href="/guides/ammo-stats">
-              Read Guide
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Weapon Family Guide</h3>
-            <p>Compare AR, SMG, DMR, and shotgun roles by engagement and handling style.</p>
-            <a className="content-hub-link" href="/guides/weapon-family">
-              Read Guide
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Beginner Progression Guide</h3>
-            <p>Build sustainable loadout habits and improve decision quality step by step.</p>
-            <a className="content-hub-link" href="/guides/beginner-progression">
-              Read Guide
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Daily Strategy Guide</h3>
-            <p>Use information-driven guess sequencing to improve daily streak consistency.</p>
-            <a className="content-hub-link" href="/guides/daily-strategy">
-              Read Guide
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Patch Impact Notes</h3>
-            <p>Learn how to interpret stat changes and adapt loadouts after data updates.</p>
-            <a className="content-hub-link" href="/guides/patch-impact">
-              Read Notes
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Tarkle FAQ</h3>
-            <p>Quick answers about data sources, modes, strategy, and site behavior.</p>
-            <a className="content-hub-link" href="/guides/faq">
-              Open FAQ
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Ammo Glossary</h3>
-            <p>Plain-language definitions for core ammo terms and practical examples.</p>
-            <a className="content-hub-link" href="/reference/ammo-glossary">
-              Open Glossary
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Weapon Stats Glossary</h3>
-            <p>Quick definitions for recoil, ergonomics, and stat relationships.</p>
-            <a className="content-hub-link" href="/reference/weapon-stats-glossary">
-              Open Glossary
-            </a>
-          </article>
-
-          <article className="content-hub-card">
-            <h3>Data Source Transparency</h3>
-            <p>How data is sourced, normalized, and updated for gameplay consistency.</p>
-            <a className="content-hub-link" href="/reference/data-transparency">
-              Read Reference
-            </a>
-          </article>
-
-        </div>
-      </section>
-
       <section className="home-info-block" aria-label="Recent updates">
         <h2>Recent Updates</h2>
         <p className="home-update-rhythm">
           Update cadence: weekly content and quality updates, with major gameplay/data updates as needed.
         </p>
         <ul>
-          <li>2026-03-29: Removed active ad placements while improving privacy and disclosure language.</li>
-          <li>2026-03-29: Updated the BTR tracker hub copy now that both map trackers are live.</li>
-          <li>2026-03-18: Expanded Privacy and Terms with detailed policy language and data-handling notes.</li>
-          <li>2026-03-18: Added scoring example board and expanded homepage learning sections.</li>
-          <li>2026-03-18: Added trust pages and moved trust/legal navigation into shared footer links.</li>
-          <li>2026-03-18: Added route-level metadata, canonical tags, sitemap, and robots support.</li>
+          <li>2026-03-29: Added a collapsible left-side navigation drawer with grouped links.</li>
+          <li>2026-03-29: Updated BTR page nav positioning so sidebar and hamburger sit lower on tracker routes.</li>
+          <li>2026-03-29: Kept About, Contact, Privacy, and Terms links always visible outside the collapsible drawer.</li>
+          <li>2026-03-29: Moved How Tarkle Works into the What Is Tarkle intro and removed Guides and Articles from home.</li>
+          <li>2026-03-29: Removed active ad placements while improving privacy and ad disclosure language.</li>
+          <li>2026-03-29: Updated BTR route hub copy now that both map trackers are live.</li>
         </ul>
       </section>
 
