@@ -14,6 +14,13 @@
     width: min(15rem, calc(100vw - 1.5rem));
   }
 
+  .app-shell-rightbar {
+    top: 6.15rem;
+    bottom: 5rem;
+    right: 0.75rem;
+    width: min(15rem, calc(100vw - 1.5rem));
+  }
+
   .app-shell-sidebar--btr {
     top: 7.35rem;
   }

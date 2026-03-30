@@ -6,6 +6,7 @@ import {
   prefetchLikelyNextRoutes,
 } from './routeConfig'
 import AppNav from './components/AppNav'
+import AppRightRail from './components/AppRightRail'
 import SiteBrand from './components/SiteBrand'
 import LegalLinks from './components/LegalLinks'
 import ConfirmLeaveModal from './components/ConfirmLeaveModal'
@@ -134,6 +135,12 @@ function AppShell() {
         >
           <AppNav currentPath={currentPath} onNavigate={requestNavigate} />
         </aside>
+
+        {!isBtrTrackerPath ? (
+          <aside id="site-right-drawer" className="app-shell-rightbar app-shell-rightbar--open">
+            <AppRightRail />
+          </aside>
+        ) : null}
 
         <div className="app-shell-content">
           <Suspense fallback={<section className="app-route-loading">Loading page...</section>}>

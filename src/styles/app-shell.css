@@ -55,6 +55,134 @@
   min-width: 0;
 }
 
+.app-shell-rightbar {
+  position: fixed;
+  top: 8.5rem;
+  bottom: 5.5rem;
+  right: 1rem;
+  width: 15rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 24;
+  transform: translateX(calc(100% + 1rem));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.app-shell-rightbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.app-shell-rightbar--open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app-right-rail {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.app-right-rail-card {
+  border: 1px solid #334155;
+  border-radius: 0.9rem;
+  padding: 0.75rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(17, 24, 39, 0.9) 100%);
+}
+
+.app-right-rail-title {
+  margin: 0;
+  color: #e2e8f0;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.app-right-rail-note {
+  margin: 0.5rem 0 0;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.app-right-time {
+  margin-top: 0.6rem;
+  border: 1px solid #334155;
+  border-radius: 0.6rem;
+  background: rgba(15, 23, 42, 0.94);
+  padding: 0.45rem 0.55rem;
+  text-align: right;
+}
+
+.app-right-time-label,
+.app-right-time-value,
+.app-right-time-subvalue {
+  margin: 0;
+}
+
+.app-right-time-label {
+  color: #94a3b8;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.app-right-time-value {
+  color: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.app-right-time-subvalue {
+  color: #cbd5e1;
+  font-size: 0.72rem;
+}
+
+.app-right-rail-links {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.app-right-rail-link {
+  border: 1px solid #1e293b;
+  border-radius: 0.6rem;
+  padding: 0.45rem 0.55rem;
+  color: #e2e8f0;
+  text-decoration: none;
+  background: rgba(15, 23, 42, 0.55);
+  line-height: 1.35;
+}
+
+.app-right-rail-link:hover,
+.app-right-rail-link:focus-visible {
+  border-color: #155e75;
+  background: rgba(21, 94, 117, 0.24);
+  outline: none;
+}
+
+.app-right-rail-link--external {
+  display: inline-block;
+  margin-top: 0.65rem;
+}
+
+.app-right-rail-list {
+  margin: 0.55rem 0 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.45rem;
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .app-route-loading {
   border: 1px solid #334155;
   border-radius: 0.75rem;
