@@ -25,9 +25,9 @@ function getTarkovTimes(nowMs = Date.now()) {
 }
 
 const RECENT_UPDATES = [
-  'Home page now includes project-context and update callouts.',
-  'Left-side navigation layout improved discoverability across sections.',
-  'BTR tracker pages were added and then upgraded with in-game time support.',
+  'EZ Mode now controls image reveal in both ammo and weapon guessing games.',
+  'Added image reference grids with hover labels for quick ammo and weapon lookup.',
+  'Reference grids now promote likely candidates first and red-out eliminated options.',
 ]
 
 function AppRightRail() {
