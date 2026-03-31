@@ -24,7 +24,7 @@ function formatValue(columnKey, weapon) {
   return weapon[columnKey] || 'Unknown'
 }
 
-function WeaponGuessBoard({ attempts }) {
+function WeaponGuessBoard({ attempts, showImages = false }) {
   const withHint = (attempt, columnKey, value) => {
     if (!NUMERIC_COLUMNS.has(columnKey)) {
       return value
@@ -78,12 +78,14 @@ function WeaponGuessBoard({ attempts }) {
                     key={`${attempt.id}-${column.key}`}
                   >
                     <span className="weapon-name-cell">
-                      <img
-                        alt=""
-                        className="weapon-name-thumb"
-                        loading="lazy"
-                        src={attempt.weapon.imageUrl}
-                      />
+                      {showImages ? (
+                        <img
+                          alt=""
+                          className="weapon-name-thumb"
+                          loading="lazy"
+                          src={attempt.weapon.imageUrl}
+                        />
+                      ) : null}
                       <span>{value}</span>
                     </span>
                   </span>

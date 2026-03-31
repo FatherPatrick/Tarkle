@@ -3,6 +3,7 @@ function GameHeader({
   message,
   onReset,
   onBackHome,
+  actionsSlot,
   showReset,
   title,
   subtitle,
@@ -21,6 +22,7 @@ function GameHeader({
             New Game
           </button>
         ) : null}
+        {actionsSlot}
       </div>
     </header>
   )

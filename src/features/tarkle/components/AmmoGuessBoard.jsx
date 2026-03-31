@@ -26,7 +26,7 @@ function formatValue(columnKey, ammo) {
   return ammo[columnKey] ?? 'Unknown'
 }
 
-function AmmoGuessBoard({ attempts }) {
+function AmmoGuessBoard({ attempts, showImages = false }) {
   const withHint = (attempt, columnKey, value) => {
     if (!NUMERIC_COLUMNS.has(columnKey)) {
       return value
@@ -76,12 +76,14 @@ function AmmoGuessBoard({ attempts }) {
                     key={`${attempt.id}-${column.key}`}
                   >
                     <span className="weapon-name-cell">
-                      <img
-                        alt=""
-                        className="weapon-name-thumb"
-                        loading="lazy"
-                        src={attempt.ammo.imageUrl}
-                      />
+                      {showImages ? (
+                        <img
+                          alt=""
+                          className="weapon-name-thumb"
+                          loading="lazy"
+                          src={attempt.ammo.imageUrl}
+                        />
+                      ) : null}
                       <span>{value}</span>
                     </span>
                   </span>

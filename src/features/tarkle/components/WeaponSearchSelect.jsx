@@ -20,6 +20,7 @@ function WeaponSearchSelect({
   onSelectWeapon,
   disabled,
   inputId,
+  showImages = false,
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -92,17 +93,19 @@ function WeaponSearchSelect({
           {filteredWeapons.length ? (
             filteredWeapons.map((weapon) => (
               <button
-                className="weapon-search-option"
+                className={`weapon-search-option${showImages ? '' : ' weapon-search-option--text-only'}`}
                 key={weapon.id}
                 onClick={() => handleWeaponPick(weapon.id)}
                 type="button"
               >
-                <img
-                  alt=""
-                  className="weapon-search-thumb"
-                  loading="lazy"
-                  src={weapon.imageUrl}
-                />
+                {showImages ? (
+                  <img
+                    alt=""
+                    className="weapon-search-thumb"
+                    loading="lazy"
+                    src={weapon.imageUrl}
+                  />
+                ) : null}
                 <span>{weapon.name}</span>
               </button>
             ))
